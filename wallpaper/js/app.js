@@ -2,7 +2,7 @@ import { AgentClient } from "./api.js";
 import { AsciiRenderer } from "./ascii.js";
 import { TerminalRenderer } from "./terminal.js";
 import { clocksFromProperties, timersFromProperties } from "./timers.js";
-import { applyTheme, getTheme, setCrtEffect } from "./themes.js";
+import { applyTheme, getTheme, setCrtEffect, setVhsWaveEffect } from "./themes.js";
 
 const DEFAULT_PORT = "48771";
 const DEFAULT_THEME = "dark";
@@ -16,6 +16,15 @@ const state = {
   themeName: DEFAULT_THEME,
   theme: getTheme(DEFAULT_THEME),
   crtEffect: true,
+  vhsWaveEffect: true,
+  metricsVisibility: {
+    cpu: true,
+    cores: true,
+    ip: true,
+    net: true,
+    screen: true,
+    disk: true
+  },
   timers: Array.from({ length: 5 }, () => ({ enabled: false, title: "", target: "" })),
   clocks: Array.from({ length: 3 }, () => ({ enabled: false, title: "", offset: "" }))
 };
@@ -29,6 +38,7 @@ const client = new AgentClient({ port: state.port });
 
 state.theme = applyTheme(state.themeName);
 setCrtEffect(state.crtEffect);
+setVhsWaveEffect(state.vhsWaveEffect);
 
 client.addEventListener("state", (event) => {
   state.online = Boolean(event.detail.online);
@@ -69,6 +79,11 @@ window.wallpaperPropertyListener = {
       state.crtEffect = Boolean(properties.crtEffect.value);
       setCrtEffect(state.crtEffect);
     }
+    if (properties.vhsWaveEffect) {
+      state.vhsWaveEffect = Boolean(properties.vhsWaveEffect.value);
+      setVhsWaveEffect(state.vhsWaveEffect);
+    }
+    applyMetricVisibility(properties);
     state.timers = timersFromProperties(properties, state.timers);
     state.clocks = clocksFromProperties(properties, state.clocks);
   }
@@ -83,6 +98,22 @@ function setTheme(name) {
 function resizeAll() {
   ascii.resize();
   terminal.resize();
+}
+
+function applyMetricVisibility(properties) {
+  const map = {
+    showCpu: "cpu",
+    showCores: "cores",
+    showIp: "ip",
+    showNet: "net",
+    showScreen: "screen",
+    showDisk: "disk"
+  };
+  for (const [propertyName, stateName] of Object.entries(map)) {
+    if (properties[propertyName]) {
+      state.metricsVisibility[stateName] = Boolean(properties[propertyName].value);
+    }
+  }
 }
 
 resizeAll();

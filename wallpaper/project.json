@@ -1,297 +1,323 @@
 {
-	"contentrating" : "Everyone",
-	"description" : "Interactive terminal-style Web Wallpaper for Wallpaper Engine. Connects to the local Socket Console Agent on localhost, renders live Windows system metrics, color ASCII artwork, countdown timers, extra UTC clocks, themes, and a lightweight CRT/VHS effect.",
-	"file" : "index.html",
-	"general" : 
-	{
-		"properties" : 
-		{
-			"agentPort" : 
-			{
-				"index" : 1,
-				"order" : 101,
-				"text" : "Agent port",
-				"type" : "textinput",
-				"value" : "48771"
-			},
-			"clock1Enabled" : 
-			{
-				"index" : 21,
-				"order" : 121,
-				"text" : "Clock 1",
-				"type" : "bool",
-				"value" : false
-			},
-			"clock1Offset" : 
-			{
-				"condition" : "clock1Enabled.value == true",
-				"index" : 23,
-				"order" : 123,
-				"text" : "Clock 1 UTC offset",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"clock1Title" : 
-			{
-				"condition" : "clock1Enabled.value == true",
-				"index" : 22,
-				"order" : 122,
-				"text" : "Clock 1 title",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"clock2Enabled" : 
-			{
-				"index" : 24,
-				"order" : 124,
-				"text" : "Clock 2",
-				"type" : "bool",
-				"value" : false
-			},
-			"clock2Offset" : 
-			{
-				"condition" : "clock2Enabled.value == true",
-				"index" : 26,
-				"order" : 126,
-				"text" : "Clock 2 UTC offset",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"clock2Title" : 
-			{
-				"condition" : "clock2Enabled.value == true",
-				"index" : 25,
-				"order" : 125,
-				"text" : "Clock 2 title",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"clock3Enabled" : 
-			{
-				"index" : 27,
-				"order" : 127,
-				"text" : "Clock 3",
-				"type" : "bool",
-				"value" : false
-			},
-			"clock3Offset" : 
-			{
-				"condition" : "clock3Enabled.value == true",
-				"index" : 29,
-				"order" : 129,
-				"text" : "Clock 3 UTC offset",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"clock3Title" : 
-			{
-				"condition" : "clock3Enabled.value == true",
-				"index" : 28,
-				"order" : 128,
-				"text" : "Clock 3 title",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"clocksGroup" : 
-			{
-				"index" : 20,
-				"order" : 120,
-				"text" : "Extra clocks",
-				"type" : "group",
-				"value" : ""
-			},
-			"crtEffect" : 
-			{
-				"index" : 3,
-				"order" : 103,
-				"text" : "CRT/VHS effect",
-				"type" : "bool",
-				"value" : true
-			},
-			"generalGroup" : 
-			{
-				"index" : 0,
-				"order" : 100,
-				"text" : "General",
-				"type" : "group",
-				"value" : ""
-			},
-			"schemecolor" : 
-			{
-				"order" : 0,
-				"text" : "ui_browse_properties_scheme_color",
-				"type" : "color",
-				"value" : "0 0 0"
-			},
-			"theme" : 
-			{
-				"index" : 2,
-				"options" : 
-				[
-					{
-						"label" : "Dark",
-						"value" : "dark"
-					},
-					{
-						"label" : "Light",
-						"value" : "light"
-					},
-					{
-						"label" : "Aperture Science",
-						"value" : "aperture"
-					}
-				],
-				"order" : 102,
-				"text" : "Theme",
-				"type" : "combo",
-				"value" : "dark"
-			},
-			"timer1Enabled" : 
-			{
-				"index" : 5,
-				"order" : 105,
-				"text" : "Timer 1",
-				"type" : "bool",
-				"value" : false
-			},
-			"timer1Target" : 
-			{
-				"condition" : "timer1Enabled.value == true",
-				"index" : 7,
-				"order" : 107,
-				"text" : "Timer 1 date/time",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timer1Title" : 
-			{
-				"condition" : "timer1Enabled.value == true",
-				"index" : 6,
-				"order" : 106,
-				"text" : "Timer 1 title",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timer2Enabled" : 
-			{
-				"index" : 8,
-				"order" : 108,
-				"text" : "Timer 2",
-				"type" : "bool",
-				"value" : false
-			},
-			"timer2Target" : 
-			{
-				"condition" : "timer2Enabled.value == true",
-				"index" : 10,
-				"order" : 110,
-				"text" : "Timer 2 date/time",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timer2Title" : 
-			{
-				"condition" : "timer2Enabled.value == true",
-				"index" : 9,
-				"order" : 109,
-				"text" : "Timer 2 title",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timer3Enabled" : 
-			{
-				"index" : 11,
-				"order" : 111,
-				"text" : "Timer 3",
-				"type" : "bool",
-				"value" : false
-			},
-			"timer3Target" : 
-			{
-				"condition" : "timer3Enabled.value == true",
-				"index" : 13,
-				"order" : 113,
-				"text" : "Timer 3 date/time",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timer3Title" : 
-			{
-				"condition" : "timer3Enabled.value == true",
-				"index" : 12,
-				"order" : 112,
-				"text" : "Timer 3 title",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timer4Enabled" : 
-			{
-				"index" : 14,
-				"order" : 114,
-				"text" : "Timer 4",
-				"type" : "bool",
-				"value" : false
-			},
-			"timer4Target" : 
-			{
-				"condition" : "timer4Enabled.value == true",
-				"index" : 16,
-				"order" : 116,
-				"text" : "Timer 4 date/time",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timer4Title" : 
-			{
-				"condition" : "timer4Enabled.value == true",
-				"index" : 15,
-				"order" : 115,
-				"text" : "Timer 4 title",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timer5Enabled" : 
-			{
-				"index" : 17,
-				"order" : 117,
-				"text" : "Timer 5",
-				"type" : "bool",
-				"value" : false
-			},
-			"timer5Target" : 
-			{
-				"condition" : "timer5Enabled.value == true",
-				"index" : 19,
-				"order" : 119,
-				"text" : "Timer 5 date/time",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timer5Title" : 
-			{
-				"condition" : "timer5Enabled.value == true",
-				"index" : 18,
-				"order" : 118,
-				"text" : "Timer 5 title",
-				"type" : "textinput",
-				"value" : ""
-			},
-			"timersGroup" : 
-			{
-				"index" : 4,
-				"order" : 104,
-				"text" : "Timers",
-				"type" : "group",
-				"value" : ""
-			}
-		}
-	},
-	"preview" : "preview.jpg",
-	"ratingsex" : "none",
-	"ratingviolence" : "none",
-	"tags" : [ "Technology", "Retro", "Cyberpunk" ],
-	"title" : "Socket Console Wallpaper",
-	"type" : "web",
-	"version" : 1,
-	"visibility" : "private"
+  "contentrating": "Everyone",
+  "description": "Interactive terminal-style Web Wallpaper for Wallpaper Engine. Connects to the local Socket Console Agent on localhost, renders live Windows system metrics, color ASCII artwork, countdown timers, extra UTC clocks, themes, and a lightweight CRT/VHS effect.",
+  "file": "index.html",
+  "general": {
+    "properties": {
+      "agentPort": {
+        "index": 1,
+        "order": 101,
+        "text": "Agent port",
+        "type": "textinput",
+        "value": "48771"
+      },
+      "clock1Enabled": {
+        "index": 31,
+        "order": 131,
+        "text": "Clock 1",
+        "type": "bool",
+        "value": false
+      },
+      "clock1Offset": {
+        "condition": "clock1Enabled.value == true",
+        "index": 33,
+        "order": 133,
+        "text": "Clock 1 UTC offset",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock1Title": {
+        "condition": "clock1Enabled.value == true",
+        "index": 32,
+        "order": 132,
+        "text": "Clock 1 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock2Enabled": {
+        "index": 34,
+        "order": 134,
+        "text": "Clock 2",
+        "type": "bool",
+        "value": false
+      },
+      "clock2Offset": {
+        "condition": "clock2Enabled.value == true",
+        "index": 36,
+        "order": 136,
+        "text": "Clock 2 UTC offset",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock2Title": {
+        "condition": "clock2Enabled.value == true",
+        "index": 35,
+        "order": 135,
+        "text": "Clock 2 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock3Enabled": {
+        "index": 37,
+        "order": 137,
+        "text": "Clock 3",
+        "type": "bool",
+        "value": false
+      },
+      "clock3Offset": {
+        "condition": "clock3Enabled.value == true",
+        "index": 39,
+        "order": 139,
+        "text": "Clock 3 UTC offset",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock3Title": {
+        "condition": "clock3Enabled.value == true",
+        "index": 38,
+        "order": 138,
+        "text": "Clock 3 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "clocksGroup": {
+        "index": 30,
+        "order": 130,
+        "text": "Extra clocks",
+        "type": "group",
+        "value": ""
+      },
+      "crtEffect": {
+        "index": 3,
+        "order": 103,
+        "text": "CRT/VHS effect",
+        "type": "bool",
+        "value": true
+      },
+      "vhsWaveEffect": {
+        "index": 4,
+        "order": 104,
+        "text": "VHS rolling wave",
+        "type": "bool",
+        "value": true
+      },
+      "generalGroup": {
+        "index": 0,
+        "order": 100,
+        "text": "General",
+        "type": "group",
+        "value": ""
+      },
+      "metricsGroup": {
+        "index": 40,
+        "order": 140,
+        "text": "System metrics",
+        "type": "group",
+        "value": ""
+      },
+      "showCpu": {
+        "index": 41,
+        "order": 141,
+        "text": "Show CPU",
+        "type": "bool",
+        "value": true
+      },
+      "showCores": {
+        "index": 42,
+        "order": 142,
+        "text": "Show cores",
+        "type": "bool",
+        "value": true
+      },
+      "showIp": {
+        "index": 43,
+        "order": 143,
+        "text": "Show IP",
+        "type": "bool",
+        "value": true
+      },
+      "showNet": {
+        "index": 44,
+        "order": 144,
+        "text": "Show network interface",
+        "type": "bool",
+        "value": true
+      },
+      "showScreen": {
+        "index": 45,
+        "order": 145,
+        "text": "Show screen",
+        "type": "bool",
+        "value": true
+      },
+      "showDisk": {
+        "index": 46,
+        "order": 146,
+        "text": "Show disk",
+        "type": "bool",
+        "value": true
+      },
+      "schemecolor": {
+        "order": 0,
+        "text": "ui_browse_properties_scheme_color",
+        "type": "color",
+        "value": "0 0 0"
+      },
+      "theme": {
+        "index": 2,
+        "options": [
+          {
+            "label": "Dark",
+            "value": "dark"
+          },
+          {
+            "label": "Light",
+            "value": "light"
+          },
+          {
+            "label": "Aperture Science",
+            "value": "aperture"
+          }
+        ],
+        "order": 102,
+        "text": "Theme",
+        "type": "combo",
+        "value": "dark"
+      },
+      "timer1Enabled": {
+        "index": 11,
+        "order": 111,
+        "text": "Timer 1",
+        "type": "bool",
+        "value": false
+      },
+      "timer1Target": {
+        "condition": "timer1Enabled.value == true",
+        "index": 13,
+        "order": 113,
+        "text": "Timer 1 date/time",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer1Title": {
+        "condition": "timer1Enabled.value == true",
+        "index": 12,
+        "order": 112,
+        "text": "Timer 1 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer2Enabled": {
+        "index": 14,
+        "order": 114,
+        "text": "Timer 2",
+        "type": "bool",
+        "value": false
+      },
+      "timer2Target": {
+        "condition": "timer2Enabled.value == true",
+        "index": 16,
+        "order": 116,
+        "text": "Timer 2 date/time",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer2Title": {
+        "condition": "timer2Enabled.value == true",
+        "index": 15,
+        "order": 115,
+        "text": "Timer 2 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer3Enabled": {
+        "index": 17,
+        "order": 117,
+        "text": "Timer 3",
+        "type": "bool",
+        "value": false
+      },
+      "timer3Target": {
+        "condition": "timer3Enabled.value == true",
+        "index": 19,
+        "order": 119,
+        "text": "Timer 3 date/time",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer3Title": {
+        "condition": "timer3Enabled.value == true",
+        "index": 18,
+        "order": 118,
+        "text": "Timer 3 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer4Enabled": {
+        "index": 20,
+        "order": 120,
+        "text": "Timer 4",
+        "type": "bool",
+        "value": false
+      },
+      "timer4Target": {
+        "condition": "timer4Enabled.value == true",
+        "index": 22,
+        "order": 122,
+        "text": "Timer 4 date/time",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer4Title": {
+        "condition": "timer4Enabled.value == true",
+        "index": 21,
+        "order": 121,
+        "text": "Timer 4 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer5Enabled": {
+        "index": 23,
+        "order": 123,
+        "text": "Timer 5",
+        "type": "bool",
+        "value": false
+      },
+      "timer5Target": {
+        "condition": "timer5Enabled.value == true",
+        "index": 25,
+        "order": 125,
+        "text": "Timer 5 date/time",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer5Title": {
+        "condition": "timer5Enabled.value == true",
+        "index": 24,
+        "order": 124,
+        "text": "Timer 5 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timersGroup": {
+        "index": 10,
+        "order": 110,
+        "text": "Timers",
+        "type": "group",
+        "value": ""
+      }
+    }
+  },
+  "preview": "preview.jpg",
+  "ratingsex": "none",
+  "ratingviolence": "none",
+  "tags": [
+    "Technology",
+    "Retro",
+    "Cyberpunk"
+  ],
+  "title": "Socket Console Wallpaper",
+  "type": "web",
+  "version": 1,
+  "visibility": "private"
 }
