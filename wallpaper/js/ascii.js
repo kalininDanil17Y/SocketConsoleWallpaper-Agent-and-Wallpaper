@@ -4,6 +4,14 @@ export class AsciiRenderer {
     this.ctx = canvas.getContext("2d", { alpha: true });
     this.frame = null;
     this.layout = null;
+    this.offsetX = 0;
+    this.offsetY = 0;
+  }
+
+  setOffset(x, y) {
+    this.offsetX = Number(x) || 0;
+    this.offsetY = Number(y) || 0;
+    this.draw();
   }
 
   setFrame(frame) {
@@ -19,6 +27,49 @@ export class AsciiRenderer {
   clear() {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  drawNoSignal(theme) {
+    this.clear();
+    const dpr = window.devicePixelRatio || 1;
+    const width = this.canvas.width;
+    const height = this.canvas.height;
+    const ctx = this.ctx;
+    const lines = [
+      "███╗   ██╗ ██████╗ ",
+      "████╗  ██║██╔═══██╗",
+      "██╔██╗ ██║██║   ██║",
+      "██║╚██╗██║██║   ██║",
+      "██║ ╚████║╚██████╔╝",
+      "╚═╝  ╚═══╝ ╚═════╝ ",
+      "",
+      "███████╗██╗ ██████╗ ███╗   ██╗ █████╗ ██╗     ",
+      "██╔════╝██║██╔════╝ ████╗  ██║██╔══██╗██║     ",
+      "███████╗██║██║  ███╗██╔██╗ ██║███████║██║     ",
+      "╚════██║██║██║   ██║██║╚██╗██║██╔══██║██║     ",
+      "███████║██║╚██████╔╝██║ ╚████║██║  ██║███████╗",
+      "╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝"
+    ];
+    const maxChars = lines.reduce((max, line) => Math.max(max, line.length), 0);
+    const fontSize = Math.max(9 * dpr, Math.floor(Math.min((width * 0.72) / maxChars / 0.62, (height * 0.52) / lines.length)));
+    ctx.save();
+    ctx.font = `${fontSize}px Consolas, "Cascadia Mono", "Courier New", monospace`;
+    ctx.textBaseline = "top";
+    ctx.textAlign = "left";
+    ctx.fillStyle = theme?.danger || "#ff334f";
+    ctx.shadowColor = theme?.danger || "#ff334f";
+    ctx.shadowBlur = 12 * dpr;
+    const lineH = fontSize * 1.05;
+    const textW = Math.max(...lines.map((line) => ctx.measureText(line).width));
+    const panelReserve = width >= 1120 * dpr ? Math.min(width * 0.38, 560 * dpr) : 0;
+    const artX = panelReserve;
+    const artW = width - panelReserve;
+    const startX = Math.floor(artX + (artW - textW) / 2 + this.offsetX * dpr);
+    const startY = Math.floor((height - lineH * lines.length) / 2 + this.offsetY * dpr);
+    for (let i = 0; i < lines.length; i++) {
+      ctx.fillText(lines[i], startX, startY + i * lineH);
+    }
+    ctx.restore();
   }
 
   draw() {
@@ -56,8 +107,8 @@ export class AsciiRenderer {
     const scaleX = visualCellW / naturalCellW;
     const totalW = visualCellW * frame.w;
     const totalH = cellH * frame.h;
-    const startX = Math.floor(artX + (artW - totalW) / 2);
-    const startY = Math.floor(pad + (artH - totalH) / 2);
+    const startX = Math.floor(artX + (artW - totalW) / 2 + this.offsetX * dpr);
+    const startY = Math.floor(pad + (artH - totalH) / 2 + this.offsetY * dpr);
 
     this.layout = { startX, startY, cellW: visualCellW, cellH, fontSize, scaleX };
     ctx.save();
