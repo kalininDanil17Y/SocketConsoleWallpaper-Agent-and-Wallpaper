@@ -15,8 +15,8 @@ const state = {
   themeName: DEFAULT_THEME,
   theme: getTheme(DEFAULT_THEME),
   crtEffect: true,
-  timers: Array.from({ length: 5 }, () => ({ title: "", target: "" })),
-  clocks: Array.from({ length: 3 }, () => ({ title: "", offset: "" }))
+  timers: Array.from({ length: 5 }, () => ({ enabled: false, title: "", target: "" })),
+  clocks: Array.from({ length: 3 }, () => ({ enabled: false, title: "", offset: "" }))
 };
 
 const asciiCanvas = document.getElementById("asciiCanvas");

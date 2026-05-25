@@ -50,3 +50,28 @@ Then open:
 ```text
 http://127.0.0.1:48880/index.html
 ```
+
+Wallpaper Engine settings include:
+
+- `theme`: `dark`, `light`, or `aperture`
+- `timer1Title` ... `timer5Title`
+- `timer1Target` ... `timer5Target`
+- `clock1Title` ... `clock3Title`
+- `clock1Offset` ... `clock3Offset`
+
+Timer target examples:
+
+```text
+2026-12-31 23:59
+31.12.2026 23:59
+31.12
+31.12 23:59
+```
+
+Clock offset examples:
+
+```text
++7
+-4
++5:30
+```
