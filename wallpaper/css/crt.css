@@ -1,4 +1,5 @@
 .crt-overlay,
+.vhs-wave,
 .vignette {
   position: absolute;
   inset: 0;
@@ -26,6 +27,52 @@
   animation: crtFlicker 5.8s infinite steps(1, end);
 }
 
+.vhs-wave {
+  display: none;
+  overflow: hidden;
+  opacity: 0.42;
+  mix-blend-mode: screen;
+}
+
+.vhs-wave::before {
+  content: "";
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  top: -45%;
+  height: 34%;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(255, 255, 255, 0.018) 20%,
+      rgba(255, 255, 255, 0.11) 48%,
+      rgba(0, 0, 0, 0.11) 54%,
+      rgba(255, 255, 255, 0.045) 66%,
+      transparent 100%
+    );
+  filter: blur(1.5px);
+  transform: skewY(-1deg);
+  animation: vhsRollingWave 6.5s linear infinite;
+}
+
+.vhs-wave::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.035) 50%, transparent 100%),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 13px,
+      rgba(255, 255, 255, 0.035) 14px,
+      transparent 16px
+    );
+  opacity: 0.32;
+  animation: vhsMicroJitter 0.18s infinite steps(2, end);
+}
+
 .vignette {
   display: none;
   background:
@@ -35,6 +82,10 @@
 
 .crt-enabled .crt-overlay,
 .crt-enabled .vignette {
+  display: block;
+}
+
+.vhs-wave-enabled .vhs-wave {
   display: block;
 }
 
@@ -62,5 +113,29 @@
   }
   61% {
     opacity: 0.58;
+  }
+}
+
+@keyframes vhsRollingWave {
+  0% {
+    transform: translateY(-15%) skewY(-1deg);
+  }
+  100% {
+    transform: translateY(430%) skewY(-1deg);
+  }
+}
+
+@keyframes vhsMicroJitter {
+  0% {
+    transform: translateX(0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateX(1px);
+    opacity: 0.38;
+  }
+  100% {
+    transform: translateX(-1px);
+    opacity: 0.3;
   }
 }

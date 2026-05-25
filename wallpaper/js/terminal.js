@@ -100,6 +100,7 @@ function drawHeader(ctx, x, y, w, theme, dpr) {
 
 function drawMetrics(ctx, x, y, w, theme, state, dpr) {
   const status = state.metrics;
+  const visibility = state.metricsVisibility || {};
   const startY = y + 72 * dpr;
   const lineH = 24 * dpr;
   let row = 0;
@@ -123,22 +124,36 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
 
   row++;
 
-  row = drawMeter(ctx, x, startY, row, lineH, "CPU", status?.cpu?.usagePercent || 0, theme, dpr);
+  if (visibility.cpu !== false) {
+    row = drawMeter(ctx, x, startY, row, lineH, "CPU", status?.cpu?.usagePercent || 0, theme, dpr);
+  }
   row = drawMeter(ctx, x, startY, row, lineH, "RAM", status?.memory?.usagePercent || 0, theme, dpr);
 
-  const disks = Array.isArray(status?.disks) ? status.disks : [];
-  for (const disk of disks.slice(0, 3)) {
-    row = drawMeter(ctx, x, startY, row, lineH, `DISK ${disk.name}`, disk.usagePercent || 0, theme, dpr);
+  if (visibility.disk !== false) {
+    const disks = Array.isArray(status?.disks) ? status.disks : [];
+    for (const disk of disks.slice(0, 3)) {
+      row = drawMeter(ctx, x, startY, row, lineH, `DISK ${disk.name}`, disk.usagePercent || 0, theme, dpr);
+    }
   }
 
   row++;
-  row = drawInfoLine(ctx, x, startY, row, lineH, "CPU ID", trimText(status?.cpu?.name || "unknown", 30), theme, dpr);
-  row = drawInfoLine(ctx, x, startY, row, lineH, "CORES", `${status?.cpu?.cores || 0}C / ${status?.cpu?.threads || 0}T`, theme, dpr);
-  row = drawInfoLine(ctx, x, startY, row, lineH, "IP", status?.network?.ipv4 || "n/a", theme, dpr);
-  row = drawInfoLine(ctx, x, startY, row, lineH, "NET", status?.network?.selectedInterface || "n/a", theme, dpr);
+  if (visibility.cpu !== false) {
+    row = drawInfoLine(ctx, x, startY, row, lineH, "CPU ID", trimText(status?.cpu?.name || "unknown", 30), theme, dpr);
+  }
+  if (visibility.cores !== false) {
+    row = drawInfoLine(ctx, x, startY, row, lineH, "CORES", `${status?.cpu?.cores || 0}C / ${status?.cpu?.threads || 0}T`, theme, dpr);
+  }
+  if (visibility.ip !== false) {
+    row = drawInfoLine(ctx, x, startY, row, lineH, "IP", status?.network?.ipv4 || "n/a", theme, dpr);
+  }
+  if (visibility.net !== false) {
+    row = drawInfoLine(ctx, x, startY, row, lineH, "NET", status?.network?.selectedInterface || "n/a", theme, dpr);
+  }
 
-  const screen = Array.isArray(status?.screens) ? status.screens[0] : null;
-  row = drawInfoLine(ctx, x, startY, row, lineH, "SCREEN", screen ? `${screen.width}x${screen.height}` : `${window.screen.width}x${window.screen.height}`, theme, dpr);
+  if (visibility.screen !== false) {
+    const screen = Array.isArray(status?.screens) ? status.screens[0] : null;
+    row = drawInfoLine(ctx, x, startY, row, lineH, "SCREEN", screen ? `${screen.width}x${screen.height}` : `${window.screen.width}x${window.screen.height}`, theme, dpr);
+  }
 
   const timers = activeTimerRows(state.timers, now);
   if (timers.length > 0) {

@@ -24,10 +24,10 @@
     ]
   },
   "images": {
-    "directory": "C:\\Users\\devel\\OneDrive\\Изображения\\Другое\\Eva",
+    "directory": "C:\\Users\\devel\\OneDrive\\Изображения\\sd",
     "changeEverySeconds": 5,
-    "asciiWidth": 90,
-    "asciiHeight": 45,
+    "asciiWidth": 100,
+    "asciiHeight": 100,
     "charset": " .:-=+*#%@",
     "paletteSize": 128
   }

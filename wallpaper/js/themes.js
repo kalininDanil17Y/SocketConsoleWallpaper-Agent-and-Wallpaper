@@ -53,3 +53,7 @@ export function applyTheme(name) {
 export function setCrtEffect(enabled) {
   document.body.classList.toggle("crt-enabled", Boolean(enabled));
 }
+
+export function setVhsWaveEffect(enabled) {
+  document.body.classList.toggle("vhs-wave-enabled", Boolean(enabled));
+}
