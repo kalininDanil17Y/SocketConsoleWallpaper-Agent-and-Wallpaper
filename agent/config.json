@@ -9,7 +9,7 @@
     "memory": true,
     "disks": true,
     "network": true,
-    "gpu": false,
+    "gpu": true,
     "screens": true
   },
   "network": {
