@@ -1,0 +1,35 @@
+# Socket Console Wallpaper
+
+Project for Wallpaper Engine Web Wallpaper experiments.
+
+## Agent
+
+The Windows localhost agent lives in `agent/`.
+
+```powershell
+cd .\agent
+go build -o socket-console-agent.exe .
+.\socket-console-agent.exe run
+```
+
+Available commands:
+
+```text
+socket-console-agent.exe run
+socket-console-agent.exe install
+socket-console-agent.exe uninstall
+socket-console-agent.exe start
+socket-console-agent.exe stop
+socket-console-agent.exe status
+socket-console-agent.exe help
+socket-console-agent.exe help run
+socket-console-agent.exe run --help
+```
+
+Default dev endpoint:
+
+```text
+http://127.0.0.1:48771/api/v1/status
+http://127.0.0.1:48771/api/v1/ascii
+ws://127.0.0.1:48771/api/v1/live
+```
