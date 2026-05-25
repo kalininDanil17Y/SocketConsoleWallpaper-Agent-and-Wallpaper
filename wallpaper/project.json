@@ -13,19 +13,97 @@
       "theme": {
         "text": "Theme",
         "type": "combo",
-        "value": "aperture",
+        "value": "dark",
         "options": [
-          { "label": "Aperture Science", "value": "aperture" },
-          { "label": "Windows Terminal", "value": "windows" },
-          { "label": "Amber CRT", "value": "amber" },
-          { "label": "Matrix", "value": "matrix" },
-          { "label": "Minimal Mono", "value": "mono" }
+          { "label": "Dark", "value": "dark" },
+          { "label": "Light", "value": "light" },
+          { "label": "Aperture Science", "value": "aperture" }
         ]
       },
       "crtEffect": {
         "text": "CRT/VHS effect",
         "type": "bool",
         "value": true
+      },
+      "timer1Title": {
+        "text": "Timer 1 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer1Target": {
+        "text": "Timer 1 date",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer2Title": {
+        "text": "Timer 2 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer2Target": {
+        "text": "Timer 2 date",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer3Title": {
+        "text": "Timer 3 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer3Target": {
+        "text": "Timer 3 date",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer4Title": {
+        "text": "Timer 4 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer4Target": {
+        "text": "Timer 4 date",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer5Title": {
+        "text": "Timer 5 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "timer5Target": {
+        "text": "Timer 5 date",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock1Title": {
+        "text": "Clock 1 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock1Offset": {
+        "text": "Clock 1 UTC offset",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock2Title": {
+        "text": "Clock 2 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock2Offset": {
+        "text": "Clock 2 UTC offset",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock3Title": {
+        "text": "Clock 3 title",
+        "type": "textinput",
+        "value": ""
+      },
+      "clock3Offset": {
+        "text": "Clock 3 UTC offset",
+        "type": "textinput",
+        "value": ""
       }
     }
   }

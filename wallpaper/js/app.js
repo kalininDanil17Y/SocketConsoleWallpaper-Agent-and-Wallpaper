@@ -1,10 +1,11 @@
 import { AgentClient } from "./api.js";
 import { AsciiRenderer } from "./ascii.js";
 import { TerminalRenderer } from "./terminal.js";
+import { clocksFromProperties, timersFromProperties } from "./timers.js";
 import { applyTheme, getTheme, setCrtEffect } from "./themes.js";
 
 const DEFAULT_PORT = "48771";
-const DEFAULT_THEME = "aperture";
+const DEFAULT_THEME = "dark";
 
 const state = {
   port: DEFAULT_PORT,
@@ -13,7 +14,9 @@ const state = {
   asciiSource: "",
   themeName: DEFAULT_THEME,
   theme: getTheme(DEFAULT_THEME),
-  crtEffect: true
+  crtEffect: true,
+  timers: Array.from({ length: 5 }, () => ({ title: "", target: "" })),
+  clocks: Array.from({ length: 3 }, () => ({ title: "", offset: "" }))
 };
 
 const asciiCanvas = document.getElementById("asciiCanvas");
@@ -64,6 +67,8 @@ window.wallpaperPropertyListener = {
       state.crtEffect = Boolean(properties.crtEffect.value);
       setCrtEffect(state.crtEffect);
     }
+    state.timers = timersFromProperties(properties, state.timers);
+    state.clocks = clocksFromProperties(properties, state.clocks);
   }
 };
 
