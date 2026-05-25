@@ -1,0 +1,32 @@
+{
+  "title": "Socket Console Wallpaper",
+  "type": "web",
+  "file": "index.html",
+  "preview": "preview.jpg",
+  "general": {
+    "properties": {
+      "agentPort": {
+        "text": "Agent port",
+        "type": "textinput",
+        "value": "48771"
+      },
+      "theme": {
+        "text": "Theme",
+        "type": "combo",
+        "value": "aperture",
+        "options": [
+          { "label": "Aperture Science", "value": "aperture" },
+          { "label": "Windows Terminal", "value": "windows" },
+          { "label": "Amber CRT", "value": "amber" },
+          { "label": "Matrix", "value": "matrix" },
+          { "label": "Minimal Mono", "value": "mono" }
+        ]
+      },
+      "crtEffect": {
+        "text": "CRT/VHS effect",
+        "type": "bool",
+        "value": true
+      }
+    }
+  }
+}

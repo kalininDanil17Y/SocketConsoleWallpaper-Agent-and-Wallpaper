@@ -33,3 +33,20 @@ http://127.0.0.1:48771/api/v1/status
 http://127.0.0.1:48771/api/v1/ascii
 ws://127.0.0.1:48771/api/v1/live
 ```
+
+## Wallpaper
+
+The Wallpaper Engine web project lives in `wallpaper/`.
+
+For local browser preview:
+
+```powershell
+cd .\wallpaper
+python -m http.server 48880 --bind 127.0.0.1
+```
+
+Then open:
+
+```text
+http://127.0.0.1:48880/index.html
+```

@@ -1,0 +1,58 @@
+:root {
+  --bg: #050607;
+  --fg: #d8f6e0;
+  --muted: #779089;
+  --accent: #ff8d4d;
+  --accent-2: #6ee7ff;
+  --danger: #ff5370;
+  --grid: rgba(255, 255, 255, 0.08);
+  --glow: rgba(110, 231, 255, 0.18);
+  --ascii-opacity: 0.9;
+  --ui-opacity: 0.96;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace;
+}
+
+body {
+  letter-spacing: 0;
+}
+
+.wallpaper {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 72% 42%, rgba(255, 255, 255, 0.035), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 34%),
+    var(--bg);
+}
+
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#asciiCanvas {
+  opacity: var(--ascii-opacity);
+  filter: drop-shadow(0 0 10px var(--glow));
+}
+
+#uiCanvas {
+  opacity: var(--ui-opacity);
+}

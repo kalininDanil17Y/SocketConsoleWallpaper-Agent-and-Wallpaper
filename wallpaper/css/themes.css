@@ -1,0 +1,59 @@
+.theme-aperture {
+  --bg: #050607;
+  --fg: #edf6ef;
+  --muted: #8e9f98;
+  --accent: #ff8d28;
+  --accent-2: #6ee7ff;
+  --danger: #ff5370;
+  --grid: rgba(255, 141, 40, 0.15);
+  --glow: rgba(255, 141, 40, 0.17);
+  --ascii-opacity: 0.84;
+}
+
+.theme-windows {
+  --bg: #07111f;
+  --fg: #d7e7ff;
+  --muted: #83a2c7;
+  --accent: #4cc2ff;
+  --accent-2: #a78bfa;
+  --danger: #ff5c8a;
+  --grid: rgba(76, 194, 255, 0.15);
+  --glow: rgba(76, 194, 255, 0.22);
+  --ascii-opacity: 0.88;
+}
+
+.theme-amber {
+  --bg: #0b0702;
+  --fg: #ffd48a;
+  --muted: #aa7d42;
+  --accent: #ffb000;
+  --accent-2: #ffe2a8;
+  --danger: #ff684f;
+  --grid: rgba(255, 176, 0, 0.16);
+  --glow: rgba(255, 176, 0, 0.24);
+  --ascii-opacity: 0.86;
+}
+
+.theme-matrix {
+  --bg: #010602;
+  --fg: #b7ffbf;
+  --muted: #4c8a57;
+  --accent: #00ff66;
+  --accent-2: #eaffea;
+  --danger: #ff4d6d;
+  --grid: rgba(0, 255, 102, 0.16);
+  --glow: rgba(0, 255, 102, 0.22);
+  --ascii-opacity: 0.9;
+}
+
+.theme-mono {
+  --bg: #060606;
+  --fg: #eeeeee;
+  --muted: #8f8f8f;
+  --accent: #ffffff;
+  --accent-2: #c8c8c8;
+  --danger: #ff6f6f;
+  --grid: rgba(255, 255, 255, 0.12);
+  --glow: rgba(255, 255, 255, 0.12);
+  --ascii-opacity: 0.82;
+}

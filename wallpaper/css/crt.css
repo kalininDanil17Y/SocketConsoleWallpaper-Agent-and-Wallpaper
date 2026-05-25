@@ -1,0 +1,66 @@
+.crt-overlay,
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.crt-overlay {
+  display: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.055) 0,
+      rgba(255, 255, 255, 0.055) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.025),
+      rgba(0, 255, 128, 0.02),
+      rgba(0, 128, 255, 0.025)
+    );
+  mix-blend-mode: screen;
+  opacity: 0.58;
+  animation: crtFlicker 5.8s infinite steps(1, end);
+}
+
+.vignette {
+  display: none;
+  background:
+    radial-gradient(ellipse at center, transparent 42%, rgba(0, 0, 0, 0.34) 78%, rgba(0, 0, 0, 0.64) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 18%, transparent 82%, rgba(255, 255, 255, 0.02));
+}
+
+.crt-enabled .crt-overlay,
+.crt-enabled .vignette {
+  display: block;
+}
+
+.crt-enabled .wallpaper {
+  transform: scale(1.012);
+  border-radius: 1.8vw;
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.62);
+}
+
+@keyframes crtFlicker {
+  0%,
+  100% {
+    opacity: 0.52;
+    transform: translateY(0);
+  }
+  11% {
+    opacity: 0.46;
+  }
+  19% {
+    opacity: 0.62;
+    transform: translateY(1px);
+  }
+  37% {
+    opacity: 0.5;
+  }
+  61% {
+    opacity: 0.58;
+  }
+}
