@@ -1,4 +1,5 @@
 import { resizeCanvas } from "./ascii.js";
+import { activeClockRows, activeTimerRows } from "./timers.js";
 
 export class TerminalRenderer {
   constructor(canvas, state) {
@@ -100,16 +101,26 @@ function drawHeader(ctx, x, y, w, theme, dpr) {
 function drawMetrics(ctx, x, y, w, theme, state, dpr) {
   const status = state.metrics;
   const startY = y + 72 * dpr;
-  const lineH = 27 * dpr;
+  const lineH = 24 * dpr;
   let row = 0;
+  const now = new Date();
 
   ctx.save();
   ctx.textBaseline = "top";
-  ctx.font = `${16 * dpr}px Consolas, "Cascadia Mono", monospace`;
+  ctx.font = `${14 * dpr}px Consolas, "Cascadia Mono", monospace`;
 
   row = drawInfoLine(ctx, x, startY, row, lineH, "OS", status?.system?.os || "unknown", theme, dpr);
   row = drawInfoLine(ctx, x, startY, row, lineH, "HOST", status?.system?.hostname || "unknown", theme, dpr);
   row = drawInfoLine(ctx, x, startY, row, lineH, "UPTIME", formatDuration(status?.system?.uptimeSeconds || 0), theme, dpr);
+
+  const clocks = activeClockRows(state.clocks, now);
+  if (clocks.length > 0) {
+    row++;
+    for (const clock of clocks) {
+      row = drawInfoLine(ctx, x, startY, row, lineH, trimText(clock.title.toUpperCase(), 8), `${clock.value} UTC${clock.offset}`, theme, dpr, theme.accent2);
+    }
+  }
+
   row++;
 
   row = drawMeter(ctx, x, startY, row, lineH, "CPU", status?.cpu?.usagePercent || 0, theme, dpr);
@@ -128,11 +139,21 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
 
   const screen = Array.isArray(status?.screens) ? status.screens[0] : null;
   row = drawInfoLine(ctx, x, startY, row, lineH, "SCREEN", screen ? `${screen.width}x${screen.height}` : `${window.screen.width}x${window.screen.height}`, theme, dpr);
-  row = drawInfoLine(ctx, x, startY, row, lineH, "AGENT", `ONLINE :${state.port}`, theme, dpr, theme.accent);
 
   if (state.asciiSource) {
-    row++;
     drawInfoLine(ctx, x, startY, row, lineH, "ASCII", trimText(state.asciiSource, 34), theme, dpr);
+    row++;
+  }
+
+  const timers = activeTimerRows(state.timers, now);
+  if (timers.length > 0) {
+    row++;
+    ctx.fillStyle = theme.muted;
+    ctx.fillText("TIMERS", x + 22 * dpr, startY + row * lineH);
+    row++;
+    for (const timer of timers) {
+      row = drawInfoLine(ctx, x, startY, row, lineH, trimText(timer.title.toUpperCase(), 8), timer.value, theme, dpr, theme.accent);
+    }
   }
 
   ctx.restore();
