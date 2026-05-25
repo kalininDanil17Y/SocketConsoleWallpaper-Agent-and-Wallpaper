@@ -129,30 +129,37 @@
         "type": "bool",
         "value": true
       },
-      "showIp": {
+      "showRam": {
         "index": 43,
         "order": 143,
+        "text": "Show RAM",
+        "type": "bool",
+        "value": true
+      },
+      "showIp": {
+        "index": 44,
+        "order": 144,
         "text": "Show IP",
         "type": "bool",
         "value": true
       },
       "showNet": {
-        "index": 44,
-        "order": 144,
+        "index": 45,
+        "order": 145,
         "text": "Show network interface",
         "type": "bool",
         "value": true
       },
       "showScreen": {
-        "index": 45,
-        "order": 145,
+        "index": 46,
+        "order": 146,
         "text": "Show screen",
         "type": "bool",
         "value": true
       },
       "showDisk": {
-        "index": 46,
-        "order": 146,
+        "index": 47,
+        "order": 147,
         "text": "Show disk",
         "type": "bool",
         "value": true

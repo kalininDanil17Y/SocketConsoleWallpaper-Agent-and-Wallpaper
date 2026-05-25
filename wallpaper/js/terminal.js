@@ -127,7 +127,9 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
   if (visibility.cpu !== false) {
     row = drawMeter(ctx, x, startY, row, lineH, "CPU", status?.cpu?.usagePercent || 0, theme, dpr);
   }
-  row = drawMeter(ctx, x, startY, row, lineH, "RAM", status?.memory?.usagePercent || 0, theme, dpr);
+  if (visibility.ram !== false) {
+    row = drawMeter(ctx, x, startY, row, lineH, "RAM", status?.memory?.usagePercent || 0, theme, dpr);
+  }
 
   if (visibility.disk !== false) {
     const disks = Array.isArray(status?.disks) ? status.disks : [];
