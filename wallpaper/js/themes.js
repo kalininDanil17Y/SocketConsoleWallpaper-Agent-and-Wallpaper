@@ -1,5 +1,6 @@
 export const THEMES = {
   dark: {
+    key: "dark",
     name: "Dark",
     className: "theme-dark",
     bg: "#050607",
@@ -12,6 +13,7 @@ export const THEMES = {
     panel: "rgba(5, 6, 7, 0.72)"
   },
   light: {
+    key: "light",
     name: "Light",
     className: "theme-light",
     bg: "#e7e3d8",
@@ -24,6 +26,7 @@ export const THEMES = {
     panel: "rgba(231, 227, 216, 0.74)"
   },
   aperture: {
+    key: "aperture",
     name: "Aperture Science",
     className: "theme-aperture",
     bg: "#050607",
