@@ -11,6 +11,7 @@ const state = {
   port: DEFAULT_PORT,
   online: false,
   metrics: null,
+  metricsReceivedAt: 0,
   asciiSource: "",
   themeName: DEFAULT_THEME,
   theme: getTheme(DEFAULT_THEME),
@@ -35,6 +36,7 @@ client.addEventListener("state", (event) => {
 
 client.addEventListener("metrics", (event) => {
   state.metrics = event.detail.status;
+  state.metricsReceivedAt = Date.now();
 });
 
 client.addEventListener("ascii_frame", (event) => {

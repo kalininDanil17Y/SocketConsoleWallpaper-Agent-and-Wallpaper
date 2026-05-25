@@ -18,7 +18,9 @@
   },
   "disks": {
     "include": [
-      "C:"
+      "C:",
+      "A:",
+      "D:"
     ]
   },
   "images": {
