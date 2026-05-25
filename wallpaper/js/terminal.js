@@ -132,6 +132,14 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
   if (visibility.ram !== false) {
     row = drawMeter(ctx, x, startY, row, lineH, "RAM", status?.memory?.usagePercent || 0, theme, dpr);
   }
+  if (visibility.temperatures !== false) {
+    if (typeof status?.temperatures?.cpuCelsius === "number") {
+      row = drawInfoLine(ctx, x, startY, row, lineH, "CPU TEMP", `${Math.round(status.temperatures.cpuCelsius)}C`, theme, dpr, theme.accent2);
+    }
+    if (typeof status?.temperatures?.gpuCelsius === "number") {
+      row = drawInfoLine(ctx, x, startY, row, lineH, "GPU TEMP", `${Math.round(status.temperatures.gpuCelsius)}C`, theme, dpr, theme.accent2);
+    }
+  }
 
   if (visibility.disk !== false) {
     const disks = Array.isArray(status?.disks) ? status.disks : [];

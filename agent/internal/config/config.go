@@ -26,13 +26,14 @@ type ServerConfig struct {
 }
 
 type MetricsConfig struct {
-	IntervalMs int  `json:"intervalMs"`
-	CPU        bool `json:"cpu"`
-	Memory     bool `json:"memory"`
-	Disks      bool `json:"disks"`
-	Network    bool `json:"network"`
-	GPU        bool `json:"gpu"`
-	Screens    bool `json:"screens"`
+	IntervalMs   int  `json:"intervalMs"`
+	CPU          bool `json:"cpu"`
+	Memory       bool `json:"memory"`
+	Disks        bool `json:"disks"`
+	Network      bool `json:"network"`
+	GPU          bool `json:"gpu"`
+	Temperatures bool `json:"temperatures"`
+	Screens      bool `json:"screens"`
 }
 
 type NetworkConfig struct {
@@ -101,13 +102,14 @@ func Default() *Config {
 			Port: DefaultPort,
 		},
 		Metrics: MetricsConfig{
-			IntervalMs: 5000,
-			CPU:        true,
-			Memory:     true,
-			Disks:      true,
-			Network:    true,
-			GPU:        true,
-			Screens:    true,
+			IntervalMs:   5000,
+			CPU:          true,
+			Memory:       true,
+			Disks:        true,
+			Network:      true,
+			GPU:          true,
+			Temperatures: true,
+			Screens:      true,
 		},
 		Network: NetworkConfig{
 			InterfaceName: "",
