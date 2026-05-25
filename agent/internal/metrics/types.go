@@ -6,14 +6,14 @@ type AgentInfo struct {
 }
 
 type Status struct {
-	Agent   AgentInfo     `json:"agent"`
-	System  SystemInfo    `json:"system"`
-	CPU     CPUInfo       `json:"cpu,omitempty"`
-	Memory  MemoryInfo    `json:"memory,omitempty"`
-	Network NetworkInfo   `json:"network,omitempty"`
-	Disks   []DiskInfo    `json:"disks,omitempty"`
-	Screens []ScreenInfo  `json:"screens,omitempty"`
-	GPU     *OptionalInfo `json:"gpu,omitempty"`
+	Agent   AgentInfo    `json:"agent"`
+	System  SystemInfo   `json:"system"`
+	CPU     CPUInfo      `json:"cpu,omitempty"`
+	Memory  MemoryInfo   `json:"memory,omitempty"`
+	Network NetworkInfo  `json:"network,omitempty"`
+	Disks   []DiskInfo   `json:"disks,omitempty"`
+	Screens []ScreenInfo `json:"screens,omitempty"`
+	GPU     *GPUInfo     `json:"gpu,omitempty"`
 }
 
 type SystemInfo struct {
@@ -53,9 +53,19 @@ type ScreenInfo struct {
 	Height int    `json:"height"`
 }
 
-type OptionalInfo struct {
-	Enabled bool   `json:"enabled"`
-	Reason  string `json:"reason,omitempty"`
+type GPUInfo struct {
+	Name           string      `json:"name"`
+	DriverVersion  string      `json:"driverVersion,omitempty"`
+	MemoryBytes    uint64      `json:"memoryBytes,omitempty"`
+	VideoProcessor string      `json:"videoProcessor,omitempty"`
+	Devices        []GPUDevice `json:"devices,omitempty"`
+}
+
+type GPUDevice struct {
+	Name           string `json:"name"`
+	DriverVersion  string `json:"driverVersion,omitempty"`
+	MemoryBytes    uint64 `json:"memoryBytes,omitempty"`
+	VideoProcessor string `json:"videoProcessor,omitempty"`
 }
 
 type InterfaceInfo struct {

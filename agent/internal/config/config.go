@@ -106,7 +106,7 @@ func Default() *Config {
 			Memory:     true,
 			Disks:      true,
 			Network:    true,
-			GPU:        false,
+			GPU:        true,
 			Screens:    true,
 		},
 		Network: NetworkConfig{

@@ -102,8 +102,8 @@
         "value": ""
       },
       "metricsGroup": {
-        "index": 31,
-        "order": 131,
+        "index": 40,
+        "order": 140,
         "text": "System metrics",
         "type": "group",
         "value": ""
@@ -115,50 +115,50 @@
         "value": "0 0 0"
       },
       "showCores": {
-        "index": 33,
-        "order": 133,
+        "index": 44,
+        "order": 144,
         "text": "Show cores",
         "type": "bool",
         "value": true
       },
       "showCpu": {
-        "index": 32,
-        "order": 132,
+        "index": 41,
+        "order": 141,
         "text": "Show CPU",
         "type": "bool",
         "value": true
       },
       "showDisk": {
-        "index": 38,
-        "order": 138,
+        "index": 48,
+        "order": 148,
         "text": "Show disk",
         "type": "bool",
         "value": true
       },
       "showIp": {
-        "index": 35,
-        "order": 135,
+        "index": 45,
+        "order": 145,
         "text": "Show IP",
         "type": "bool",
         "value": true
       },
       "showNet": {
-        "index": 36,
-        "order": 136,
+        "index": 46,
+        "order": 146,
         "text": "Show network interface",
         "type": "bool",
         "value": true
       },
       "showRam": {
-        "index": 34,
-        "order": 134,
+        "index": 42,
+        "order": 142,
         "text": "Show RAM",
         "type": "bool",
         "value": true
       },
       "showScreen": {
-        "index": 37,
-        "order": 137,
+        "index": 47,
+        "order": 147,
         "text": "Show screen",
         "type": "bool",
         "value": true
@@ -337,6 +337,13 @@
         "text": "ASCII offset Y",
         "type": "slider",
         "value": 0
+      },
+      "showGpu": {
+        "index": 43,
+        "order": 143,
+        "text": "Show GPU",
+        "type": "bool",
+        "value": true
       }
     }
   },

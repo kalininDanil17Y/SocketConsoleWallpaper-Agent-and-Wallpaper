@@ -38,7 +38,7 @@ func (c *Collector) Collect(cfg *config.Config) (Status, error) {
 
 	if info, err := host.Info(); err == nil {
 		status.System = SystemInfo{
-			Hostname:      info.Hostname,
+			Hostname:      strings.TrimSpace(info.Hostname),
 			OS:            osName(info),
 			UptimeSeconds: info.Uptime,
 		}
@@ -62,7 +62,7 @@ func (c *Collector) Collect(cfg *config.Config) (Status, error) {
 		status.Screens = collectScreens()
 	}
 	if cfg.Metrics.GPU {
-		status.GPU = &OptionalInfo{Enabled: false, Reason: "GPU collection is not implemented yet"}
+		status.GPU = collectGPU()
 	}
 
 	return status, nil
@@ -78,7 +78,7 @@ func Interfaces() ([]InterfaceInfo, error) {
 	for _, nic := range nics {
 		addrs, _ := nic.Addrs()
 		info := InterfaceInfo{
-			Name:     nic.Name,
+			Name:     strings.TrimSpace(nic.Name),
 			Up:       nic.Flags&net.FlagUp != 0,
 			Loopback: nic.Flags&net.FlagLoopback != 0,
 		}
@@ -128,7 +128,7 @@ func Disks() ([]DiskVolume, error) {
 func collectCPU() CPUInfo {
 	out := CPUInfo{}
 	if infos, err := cpu.Info(); err == nil && len(infos) > 0 {
-		out.Name = infos[0].ModelName
+		out.Name = strings.TrimSpace(infos[0].ModelName)
 	}
 	if physical, err := cpu.Counts(false); err == nil {
 		out.Cores = physical
@@ -222,14 +222,14 @@ func collectScreens() []ScreenInfo {
 
 func osName(info *host.InfoStat) string {
 	parts := []string{}
-	if info.Platform != "" {
-		parts = append(parts, info.Platform)
+	if platform := strings.TrimSpace(info.Platform); platform != "" {
+		parts = append(parts, platform)
 	}
-	if info.PlatformVersion != "" {
-		parts = append(parts, info.PlatformVersion)
+	if version := strings.TrimSpace(info.PlatformVersion); version != "" {
+		parts = append(parts, version)
 	}
 	if len(parts) == 0 {
-		return info.OS
+		return strings.TrimSpace(info.OS)
 	}
 	return strings.Join(parts, " ")
 }

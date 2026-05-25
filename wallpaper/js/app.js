@@ -22,6 +22,7 @@ const state = {
   metricsVisibility: {
     cpu: true,
     ram: true,
+    gpu: true,
     cores: true,
     ip: true,
     net: true,
@@ -117,6 +118,7 @@ function applyMetricVisibility(properties) {
   const map = {
     showCpu: "cpu",
     showRam: "ram",
+    showGpu: "gpu",
     showCores: "cores",
     showIp: "ip",
     showNet: "net",

@@ -144,6 +144,9 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
   if (visibility.cpu !== false) {
     row = drawInfoLine(ctx, x, startY, row, lineH, "CPU ID", trimText(status?.cpu?.name || "unknown", 30), theme, dpr);
   }
+  if (visibility.gpu !== false && status?.gpu?.name) {
+    row = drawInfoLine(ctx, x, startY, row, lineH, "GPU", trimText(status.gpu.name, 30), theme, dpr);
+  }
   if (visibility.cores !== false) {
     row = drawInfoLine(ctx, x, startY, row, lineH, "CORES", `${status?.cpu?.cores || 0}C / ${status?.cpu?.threads || 0}T`, theme, dpr);
   }
