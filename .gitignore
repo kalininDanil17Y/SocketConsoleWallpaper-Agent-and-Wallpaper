@@ -1,0 +1,11 @@
+# Local agent configuration
+agent/config.json
+
+# Built binaries
+*.exe
+*.exe~
+
+# Runtime/editor noise
+.idea/
+.vscode/
+*.log

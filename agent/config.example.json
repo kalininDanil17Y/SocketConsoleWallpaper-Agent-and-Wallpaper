@@ -1,0 +1,32 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 48771
+  },
+  "metrics": {
+    "intervalMs": 5000,
+    "cpu": true,
+    "memory": true,
+    "disks": true,
+    "network": true,
+    "gpu": true,
+    "screens": true
+  },
+  "network": {
+    "interfaceName": "",
+    "preferIPv4": true
+  },
+  "disks": {
+    "include": [
+      "C:"
+    ]
+  },
+  "images": {
+    "directory": "C:\\Users\\Public\\Pictures\\WallpaperAscii",
+    "changeEverySeconds": 5,
+    "asciiWidth": 90,
+    "asciiHeight": 45,
+    "charset": " .:-=+*#%@",
+    "paletteSize": 128
+  }
+}
