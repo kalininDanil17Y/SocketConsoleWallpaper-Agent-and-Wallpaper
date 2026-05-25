@@ -14,6 +14,7 @@ type Status struct {
 	Disks   []DiskInfo   `json:"disks,omitempty"`
 	Screens []ScreenInfo `json:"screens,omitempty"`
 	GPU     *GPUInfo     `json:"gpu,omitempty"`
+	Temps   *TempInfo    `json:"temperatures,omitempty"`
 }
 
 type SystemInfo struct {
@@ -66,6 +67,22 @@ type GPUDevice struct {
 	DriverVersion  string `json:"driverVersion,omitempty"`
 	MemoryBytes    uint64 `json:"memoryBytes,omitempty"`
 	VideoProcessor string `json:"videoProcessor,omitempty"`
+}
+
+type TempInfo struct {
+	Available  bool         `json:"available"`
+	Reason     string       `json:"reason,omitempty"`
+	CPUCelsius *float64     `json:"cpuCelsius,omitempty"`
+	GPUCelsius *float64     `json:"gpuCelsius,omitempty"`
+	Sensors    []TempSensor `json:"sensors"`
+}
+
+type TempSensor struct {
+	Name     string  `json:"name"`
+	Type     string  `json:"type,omitempty"`
+	Value    float64 `json:"valueCelsius"`
+	Source   string  `json:"source,omitempty"`
+	Hardware string  `json:"hardware,omitempty"`
 }
 
 type InterfaceInfo struct {

@@ -64,6 +64,9 @@ func (c *Collector) Collect(cfg *config.Config) (Status, error) {
 	if cfg.Metrics.GPU {
 		status.GPU = collectGPU()
 	}
+	if cfg.Metrics.Temperatures {
+		status.Temps = collectTemperatures()
+	}
 
 	return status, nil
 }

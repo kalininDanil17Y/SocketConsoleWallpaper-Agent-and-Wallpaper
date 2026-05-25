@@ -10,7 +10,8 @@
     "disks": true,
     "network": true,
     "gpu": true,
-    "screens": true
+    "screens": true,
+    "temperatures": true
   },
   "network": {
     "interfaceName": "",
