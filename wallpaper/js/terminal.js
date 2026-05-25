@@ -111,13 +111,13 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
 
   row = drawInfoLine(ctx, x, startY, row, lineH, "OS", status?.system?.os || "unknown", theme, dpr);
   row = drawInfoLine(ctx, x, startY, row, lineH, "HOST", status?.system?.hostname || "unknown", theme, dpr);
-  row = drawInfoLine(ctx, x, startY, row, lineH, "UPTIME", formatDuration(status?.system?.uptimeSeconds || 0), theme, dpr);
+  row = drawInfoLine(ctx, x, startY, row, lineH, "UPTIME", formatUptime(currentUptimeSeconds(state)), theme, dpr);
 
   const clocks = activeClockRows(state.clocks, now);
   if (clocks.length > 0) {
     row++;
     for (const clock of clocks) {
-      row = drawInfoLine(ctx, x, startY, row, lineH, trimText(clock.title.toUpperCase(), 8), `${clock.value} UTC${clock.offset}`, theme, dpr, theme.accent2);
+      row = drawInfoLine(ctx, x, startY, row, lineH, trimText(clock.title.toUpperCase(), 8), clock.value, theme, dpr, theme.accent2);
     }
   }
 
@@ -139,11 +139,6 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
 
   const screen = Array.isArray(status?.screens) ? status.screens[0] : null;
   row = drawInfoLine(ctx, x, startY, row, lineH, "SCREEN", screen ? `${screen.width}x${screen.height}` : `${window.screen.width}x${window.screen.height}`, theme, dpr);
-
-  if (state.asciiSource) {
-    drawInfoLine(ctx, x, startY, row, lineH, "ASCII", trimText(state.asciiSource, 34), theme, dpr);
-    row++;
-  }
 
   const timers = activeTimerRows(state.timers, now);
   if (timers.length > 0) {
@@ -214,11 +209,23 @@ function drawMeter(ctx, x, startY, row, lineH, label, percent, theme, dpr) {
   return row + 1;
 }
 
-function formatDuration(totalSeconds) {
+function currentUptimeSeconds(state) {
+  const base = Number(state.metrics?.system?.uptimeSeconds || 0);
+  if (!base || !state.metricsReceivedAt) {
+    return base;
+  }
+  return base + Math.floor((Date.now() - state.metricsReceivedAt) / 1000);
+}
+
+function formatUptime(totalSeconds) {
   const seconds = Math.max(0, Number(totalSeconds) || 0);
-  const h = Math.floor(seconds / 3600);
+  const days = Math.floor(seconds / 86400);
+  const h = Math.floor((seconds % 86400) / 3600);
   const m = Math.floor((seconds % 3600) / 60);
   const s = Math.floor(seconds % 60);
+  if (days > 0) {
+    return `${days}d ${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  }
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
