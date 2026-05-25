@@ -6,8 +6,10 @@ export function timersFromProperties(properties, previous = []) {
   for (let i = 1; i <= MAX_TIMERS; i++) {
     const titleKey = `timer${i}Title`;
     const targetKey = `timer${i}Target`;
-    const current = timers[i - 1] || { title: "", target: "" };
+    const enabledKey = `timer${i}Enabled`;
+    const current = timers[i - 1] || { enabled: false, title: "", target: "" };
     timers[i - 1] = {
+      enabled: properties[enabledKey] ? Boolean(properties[enabledKey].value) : current.enabled,
       title: properties[titleKey] ? String(properties[titleKey].value || "") : current.title,
       target: properties[targetKey] ? String(properties[targetKey].value || "") : current.target
     };
@@ -20,8 +22,10 @@ export function clocksFromProperties(properties, previous = []) {
   for (let i = 1; i <= MAX_CLOCKS; i++) {
     const titleKey = `clock${i}Title`;
     const offsetKey = `clock${i}Offset`;
-    const current = clocks[i - 1] || { title: "", offset: "" };
+    const enabledKey = `clock${i}Enabled`;
+    const current = clocks[i - 1] || { enabled: false, title: "", offset: "" };
     clocks[i - 1] = {
+      enabled: properties[enabledKey] ? Boolean(properties[enabledKey].value) : current.enabled,
       title: properties[titleKey] ? String(properties[titleKey].value || "") : current.title,
       offset: properties[offsetKey] ? String(properties[offsetKey].value || "") : current.offset
     };
@@ -32,6 +36,9 @@ export function clocksFromProperties(properties, previous = []) {
 export function activeTimerRows(timers, now = new Date()) {
   return timers
     .map((timer, index) => {
+      if (!timer.enabled) {
+        return null;
+      }
       const title = timer.title.trim() || `TIMER ${index + 1}`;
       const target = parseTargetDate(timer.target, now);
       if (!timer.target.trim() || !target) {
@@ -50,6 +57,9 @@ export function activeTimerRows(timers, now = new Date()) {
 export function activeClockRows(clocks, now = new Date()) {
   return clocks
     .map((clock, index) => {
+      if (!clock.enabled) {
+        return null;
+      }
       const offsetMinutes = parseUTCOffset(clock.offset);
       if (!clock.offset.trim() || offsetMinutes === null) {
         return null;
