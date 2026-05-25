@@ -1,4 +1,5 @@
 import { resizeCanvas } from "./ascii.js";
+import { copyForTheme } from "./copy.js";
 import { activeClockRows, activeTimerRows } from "./timers.js";
 
 export class TerminalRenderer {
@@ -88,11 +89,12 @@ function drawPanel(ctx, x, y, w, h, theme, dpr) {
 }
 
 function drawHeader(ctx, x, y, w, theme, dpr) {
+  const copy = copyForTheme(theme.key);
   ctx.save();
   ctx.textBaseline = "top";
   ctx.font = `${14 * dpr}px Consolas, "Cascadia Mono", monospace`;
   ctx.fillStyle = theme.muted;
-  ctx.fillText("SOCKET CONSOLE WALLPAPER", x + 22 * dpr, y + 18 * dpr);
+  ctx.fillText(copy.title, x + 22 * dpr, y + 18 * dpr);
   ctx.fillStyle = theme.accent;
   ctx.fillRect(x + 22 * dpr, y + 46 * dpr, Math.max(72 * dpr, w - 44 * dpr), 2 * dpr);
   ctx.restore();
@@ -161,7 +163,7 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
   if (timers.length > 0) {
     row++;
     ctx.fillStyle = theme.muted;
-    ctx.fillText("TIMERS", x + 22 * dpr, startY + row * lineH);
+    ctx.fillText(copyForTheme(theme.key).timers, x + 22 * dpr, startY + row * lineH);
     row++;
     for (const timer of timers) {
       row = drawInfoLine(ctx, x, startY, row, lineH, trimText(timer.title.toUpperCase(), 8), timer.value, theme, dpr, theme.accent);
@@ -172,17 +174,18 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
 }
 
 function drawOffline(ctx, x, y, w, theme, port, dpr) {
+  const copy = copyForTheme(theme.key);
   ctx.save();
   ctx.textBaseline = "top";
   ctx.font = `${18 * dpr}px Consolas, "Cascadia Mono", monospace`;
   ctx.fillStyle = theme.danger;
-  ctx.fillText("AGENT: OFFLINE", x + 22 * dpr, y + 82 * dpr);
+  ctx.fillText(copy.offline, x + 22 * dpr, y + 82 * dpr);
 
   ctx.font = `${15 * dpr}px Consolas, "Cascadia Mono", monospace`;
   ctx.fillStyle = theme.fg;
-  ctx.fillText(`Start Socket Console Agent on port ${port}`, x + 22 * dpr, y + 122 * dpr);
+  ctx.fillText(copy.startAgent(port), x + 22 * dpr, y + 122 * dpr);
   ctx.fillStyle = theme.muted;
-  ctx.fillText("Reconnecting automatically...", x + 22 * dpr, y + 152 * dpr);
+  ctx.fillText(copy.reconnecting, x + 22 * dpr, y + 152 * dpr);
 
   ctx.strokeStyle = theme.danger;
   ctx.lineWidth = 1 * dpr;
@@ -193,7 +196,8 @@ function drawOffline(ctx, x, y, w, theme, port, dpr) {
 }
 
 function drawFooter(ctx, width, height, theme, state, dpr) {
-  const text = `${formatClock(new Date())}  //  ${state.theme.name.toUpperCase()}  //  ${state.online ? "WEBSOCKET OK" : "NO SIGNAL"}`;
+  const copy = copyForTheme(theme.key);
+  const text = `${formatClock(new Date())}  //  ${state.theme.name.toUpperCase()}  //  ${state.online ? copy.signalOnline : copy.signalOffline}`;
   ctx.save();
   ctx.textBaseline = "bottom";
   ctx.textAlign = "right";
