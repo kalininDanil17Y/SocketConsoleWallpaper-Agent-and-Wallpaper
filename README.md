@@ -57,6 +57,7 @@ Wallpaper Engine settings include:
 - `crtEffect`: base CRT scanlines, glow, flicker, and vignette
 - `vhsWaveEffect`: rolling old-monitor VHS wave
 - `showCpu`, `showRam`, `showCores`, `showIp`, `showNet`, `showScreen`, `showDisk`
+- `asciiOffsetX`, `asciiOffsetY`
 - `timer1Title` ... `timer5Title`
 - `timer1Target` ... `timer5Target`
 - `clock1Title` ... `clock3Title`

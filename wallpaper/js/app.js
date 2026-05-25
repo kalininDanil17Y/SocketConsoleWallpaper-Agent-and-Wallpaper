@@ -13,6 +13,8 @@ const state = {
   metrics: null,
   metricsReceivedAt: 0,
   asciiSource: "",
+  asciiOffsetX: 0,
+  asciiOffsetY: 0,
   themeName: DEFAULT_THEME,
   theme: getTheme(DEFAULT_THEME),
   crtEffect: true,
@@ -43,6 +45,11 @@ setVhsWaveEffect(state.vhsWaveEffect);
 
 client.addEventListener("state", (event) => {
   state.online = Boolean(event.detail.online);
+  if (!state.online) {
+    ascii.drawNoSignal(state.theme);
+  } else {
+    ascii.draw();
+  }
 });
 
 client.addEventListener("metrics", (event) => {
@@ -85,6 +92,7 @@ window.wallpaperPropertyListener = {
       setVhsWaveEffect(state.vhsWaveEffect);
     }
     applyMetricVisibility(properties);
+    applyAsciiLayout(properties);
     state.timers = timersFromProperties(properties, state.timers);
     state.clocks = clocksFromProperties(properties, state.clocks);
   }
@@ -93,7 +101,11 @@ window.wallpaperPropertyListener = {
 function setTheme(name) {
   state.themeName = name;
   state.theme = applyTheme(name);
-  ascii.draw();
+  if (state.online) {
+    ascii.draw();
+  } else {
+    ascii.drawNoSignal(state.theme);
+  }
 }
 
 function resizeAll() {
@@ -114,6 +126,24 @@ function applyMetricVisibility(properties) {
   for (const [propertyName, stateName] of Object.entries(map)) {
     if (properties[propertyName]) {
       state.metricsVisibility[stateName] = Boolean(properties[propertyName].value);
+    }
+  }
+}
+
+function applyAsciiLayout(properties) {
+  let changed = false;
+  if (properties.asciiOffsetX) {
+    state.asciiOffsetX = Number(properties.asciiOffsetX.value) || 0;
+    changed = true;
+  }
+  if (properties.asciiOffsetY) {
+    state.asciiOffsetY = Number(properties.asciiOffsetY.value) || 0;
+    changed = true;
+  }
+  if (changed) {
+    ascii.setOffset(state.asciiOffsetX, state.asciiOffsetY);
+    if (!state.online) {
+      ascii.drawNoSignal(state.theme);
     }
   }
 }
