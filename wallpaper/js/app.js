@@ -19,6 +19,7 @@ const state = {
   vhsWaveEffect: true,
   metricsVisibility: {
     cpu: true,
+    ram: true,
     cores: true,
     ip: true,
     net: true,
@@ -103,6 +104,7 @@ function resizeAll() {
 function applyMetricVisibility(properties) {
   const map = {
     showCpu: "cpu",
+    showRam: "ram",
     showCores: "cores",
     showIp: "ip",
     showNet: "net",

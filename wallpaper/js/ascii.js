@@ -39,9 +39,10 @@ export class AsciiRenderer {
     const artW = Math.max(240 * dpr, width - artX - pad);
     const artH = height - pad * 2;
 
-    const cellWTarget = artW / frame.w;
-    const cellHTarget = artH / frame.h;
-    const fontSize = Math.max(5 * dpr, Math.floor(Math.min(cellHTarget, cellWTarget / 0.58)));
+    const visualCellRatio = 0.96;
+    const fontSizeByW = artW / frame.w / visualCellRatio;
+    const fontSizeByH = artH / frame.h / 1.02;
+    const fontSize = Math.max(5 * dpr, Math.floor(Math.min(fontSizeByW, fontSizeByH)));
 
     ctx.font = `${fontSize}px Consolas, "Cascadia Mono", "Courier New", monospace`;
     ctx.textBaseline = "top";
@@ -49,15 +50,21 @@ export class AsciiRenderer {
     ctx.shadowColor = "rgba(255,255,255,0.11)";
     ctx.shadowBlur = 4 * dpr;
 
-    const cellW = Math.max(1, ctx.measureText("M").width);
+    const naturalCellW = Math.max(1, ctx.measureText("M").width);
     const cellH = Math.max(1, fontSize * 1.02);
-    const totalW = cellW * frame.w;
+    const visualCellW = Math.max(1, fontSize * visualCellRatio);
+    const scaleX = visualCellW / naturalCellW;
+    const totalW = visualCellW * frame.w;
     const totalH = cellH * frame.h;
     const startX = Math.floor(artX + (artW - totalW) / 2);
     const startY = Math.floor(pad + (artH - totalH) / 2);
 
-    this.layout = { startX, startY, cellW, cellH, fontSize };
-    drawFrame(ctx, frame, startX, startY, cellW, cellH);
+    this.layout = { startX, startY, cellW: visualCellW, cellH, fontSize, scaleX };
+    ctx.save();
+    ctx.translate(startX, startY);
+    ctx.scale(scaleX, 1);
+    drawFrame(ctx, frame, 0, 0, naturalCellW, cellH);
+    ctx.restore();
     ctx.shadowBlur = 0;
   }
 }
