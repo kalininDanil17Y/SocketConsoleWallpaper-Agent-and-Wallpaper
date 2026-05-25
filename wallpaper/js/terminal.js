@@ -193,13 +193,23 @@ function drawOffline(ctx, x, y, w, theme, port, dpr) {
 }
 
 function drawFooter(ctx, width, height, theme, state, dpr) {
-  const text = `${formatClock(new Date())}  //  ${state.theme.name.toUpperCase()}  //  ${state.online ? "LIVE LINK" : "NO SIGNAL"}`;
+  const text = `${formatClock(new Date())}  //  ${state.theme.name.toUpperCase()}  //  ${state.online ? "WEBSOCKET OK" : "NO SIGNAL"}`;
   ctx.save();
   ctx.textBaseline = "bottom";
   ctx.textAlign = "right";
   ctx.font = `${13 * dpr}px Consolas, "Cascadia Mono", monospace`;
+  const textW = ctx.measureText(text).width;
+  const padX = 10 * dpr;
+  const padY = 6 * dpr;
+  const x = width - 26 * dpr;
+  const y = height - 20 * dpr;
+  ctx.fillStyle = theme.panel;
+  ctx.strokeStyle = theme.grid;
+  ctx.lineWidth = 1 * dpr;
+  ctx.fillRect(x - textW - padX, y - 17 * dpr - padY, textW + padX * 2, 21 * dpr + padY * 2);
+  ctx.strokeRect(x - textW - padX, y - 17 * dpr - padY, textW + padX * 2, 21 * dpr + padY * 2);
   ctx.fillStyle = state.online ? theme.muted : theme.danger;
-  ctx.fillText(text, width - 26 * dpr, height - 20 * dpr);
+  ctx.fillText(text, x, y);
   ctx.restore();
 }
 
