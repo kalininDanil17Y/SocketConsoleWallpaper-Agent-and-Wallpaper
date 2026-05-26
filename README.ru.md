@@ -11,6 +11,7 @@ English documentation: [README.md](README.md)
 ## Превью
 
 ![Превью Socket Console Wallpaper](readme-preview.png)
+![Превью Socket Console Wallpaper](readme-preview2.png)
 
 ## Безопасность и прозрачность
 

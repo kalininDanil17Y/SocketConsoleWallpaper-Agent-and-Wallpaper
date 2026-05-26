@@ -11,6 +11,7 @@ This project was developed with AI assistance from Codex GPT-5.5 High.
 ## Preview
 
 ![Socket Console Wallpaper preview](readme-preview.png)
+![Socket Console Wallpaper preview](readme-preview2.png)
 
 ## Security and Transparency
 
