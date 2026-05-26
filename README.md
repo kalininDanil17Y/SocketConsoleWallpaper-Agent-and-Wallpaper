@@ -8,6 +8,12 @@ Russian documentation: [README.ru.md](README.ru.md)
 
 This project was developed with AI assistance from Codex GPT-5.5 High.
 
+## Security and Transparency
+
+The optional local agent binary has a public [VirusTotal analysis](https://www.virustotal.com/gui/file-analysis/ZWZlZjFkZTQxY2I5ODBkYTVkMTYxZTBiZmE3MzdlNzk6MTc3OTc3Mzc5MA==). At the time of review, 70 of 71 security vendors did not flag `socket-console-agent.exe`; one vendor reported a generic suspicious detection.
+
+All source code is open in this repository. Review, issues, and feedback on any part of the implementation are welcome.
+
 ## Agent
 
 The Windows localhost agent lives in `agent/`.
@@ -75,6 +81,7 @@ http://127.0.0.1:48880/index.html
 Wallpaper Engine settings include:
 
 - `theme`: `dark`, `light`, or `aperture`
+- `agentDownloadUrl`: latest release URL for the optional local agent
 - `crtEffect`: base CRT scanlines, glow, flicker, and vignette
 - `vhsWaveEffect`: rolling old-monitor VHS wave
 - `showCpu`, `showRam`, `showGpu`, `showTemperatures`, `showCores`, `showIp`, `showNet`, `showScreen`, `showDisk`

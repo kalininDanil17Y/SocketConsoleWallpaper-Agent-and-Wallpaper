@@ -8,6 +8,12 @@ English documentation: [README.md](README.md)
 
 Проект разработан при поддержке AI-ассистента Codex GPT-5.5 High.
 
+## Безопасность и прозрачность
+
+Для бинарного файла опционального локального агента доступен публичный [отчёт VirusTotal](https://www.virustotal.com/gui/file-analysis/ZWZlZjFkZTQxY2I5ODBkYTVkMTYxZTBiZmE3MzdlNzk6MTc3OTc3Mzc5MA==). На момент проверки 70 из 71 антивирусных движков не пометили `socket-console-agent.exe`; один движок показал generic suspicious detection.
+
+Весь исходный код открыт в этом репозитории. Ревью, issues и фидбек по любому участку реализации приветствуются.
+
 ## Агент
 
 Локальный Windows-агент находится в `agent/`.
@@ -75,6 +81,7 @@ http://127.0.0.1:48880/index.html
 Настройки Wallpaper Engine:
 
 - `theme`: `dark`, `light` или `aperture`
+- `agentDownloadUrl`: ссылка на последний релиз опционального локального агента
 - `crtEffect`: базовые CRT scanlines, glow, flicker и vignette
 - `vhsWaveEffect`: волна старого VHS/CRT-монитора
 - `showCpu`, `showRam`, `showGpu`, `showTemperatures`, `showCores`, `showIp`, `showNet`, `showScreen`, `showDisk`

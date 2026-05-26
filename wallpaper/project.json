@@ -14,6 +14,14 @@
 				"type" : "textinput",
 				"value" : "48771"
 			},
+			"agentDownloadUrl" : 
+			{
+				"index" : 45,
+				"order" : 145,
+				"text" : "Agent download URL",
+				"type" : "textinput",
+				"value" : "https://github.com/kalininDanil17Y/SocketConsoleWallpaper-Agent-and-Wallpaper/releases/latest"
+			},
 			"asciiGroup" : 
 			{
 				"index" : 42,
