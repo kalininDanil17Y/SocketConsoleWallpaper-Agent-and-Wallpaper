@@ -1,11 +1,19 @@
 {
 	"contentrating" : "Everyone",
-	"description" : "Interactive terminal-style Web Wallpaper for Wallpaper Engine. Live metrics require an optional local companion agent. The wallpaper also works as a standalone NO SIGNAL terminal scene with color ASCII styling, countdown timers, extra UTC clocks, themes, and a lightweight CRT/VHS effect.",
+	"description" : "Interactive terminal-style Web Wallpaper for Wallpaper Engine.",
 	"file" : "index.html",
 	"general" : 
 	{
 		"properties" : 
 		{
+			"agentDownloadUrl" : 
+			{
+				"index" : 1,
+				"order" : 101,
+				"text" : "Agent download URL",
+				"type" : "textinput",
+				"value" : "https://github.com/kalininDanil17Y/SocketConsoleWallpaper-Agent-and-Wallpaper/releases/latest"
+			},
 			"agentPort" : 
 			{
 				"condition" : "useAgent.value == true",
@@ -14,14 +22,6 @@
 				"text" : "Agent port",
 				"type" : "textinput",
 				"value" : "48771"
-			},
-			"agentDownloadUrl" : 
-			{
-				"index" : 1,
-				"order" : 101,
-				"text" : "Agent download URL",
-				"type" : "textinput",
-				"value" : "https://github.com/kalininDanil17Y/SocketConsoleWallpaper-Agent-and-Wallpaper/releases/latest"
 			},
 			"asciiGroup" : 
 			{
@@ -272,14 +272,6 @@
 				"type" : "combo",
 				"value" : "aperture"
 			},
-			"useAgent" : 
-			{
-				"index" : 2,
-				"order" : 102,
-				"text" : "Use local agent for live metrics",
-				"type" : "bool",
-				"value" : false
-			},
 			"timer1Enabled" : 
 			{
 				"index" : 8,
@@ -418,6 +410,14 @@
 				"type" : "group",
 				"value" : ""
 			},
+			"useAgent" : 
+			{
+				"index" : 2,
+				"order" : 102,
+				"text" : "Use local agent for live metrics",
+				"type" : "bool",
+				"value" : false
+			},
 			"vhsWaveEffect" : 
 			{
 				"index" : 6,
@@ -436,8 +436,8 @@
 	"tags" : [ "Technology" ],
 	"title" : "Socket Console Wallpaper",
 	"type" : "web",
-	"version" : 2,
-	"visibility" : "friends",
+	"version" : 3,
+	"visibility" : "public",
 	"workshopid" : "3732839139",
 	"workshopurl" : "steam://url/CommunityFilePage/3732839139"
 }
