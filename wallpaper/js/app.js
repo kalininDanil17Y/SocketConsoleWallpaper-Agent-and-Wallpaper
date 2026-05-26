@@ -12,6 +12,7 @@ const state = {
   online: false,
   metrics: null,
   metricsReceivedAt: 0,
+  useAgent: false,
   asciiSource: "",
   asciiOffsetX: 0,
   asciiOffsetY: 0,
@@ -73,15 +74,22 @@ window.addEventListener("resize", resizeAll);
 window.addEventListener("visibilitychange", () => {
   if (!document.hidden) {
     resizeAll();
-    client.connect();
+    if (state.useAgent) {
+      client.connect();
+    }
   }
 });
 
 window.wallpaperPropertyListener = {
   applyUserProperties(properties) {
+    applyAgentSettings(properties);
     if (properties.agentPort) {
       state.port = String(properties.agentPort.value || DEFAULT_PORT);
-      client.setPort(state.port);
+      if (state.useAgent) {
+        client.setPort(state.port);
+      } else {
+        client.port = state.port;
+      }
     }
     if (properties.theme) {
       setTheme(String(properties.theme.value || DEFAULT_THEME));
@@ -101,6 +109,25 @@ window.wallpaperPropertyListener = {
     state.clocks = clocksFromProperties(properties, state.clocks);
   }
 };
+
+function applyAgentSettings(properties) {
+  if (!properties.useAgent) {
+    return;
+  }
+  const shouldUseAgent = Boolean(properties.useAgent.value);
+  if (state.useAgent === shouldUseAgent) {
+    return;
+  }
+  state.useAgent = shouldUseAgent;
+  if (state.useAgent) {
+    client.connect();
+    return;
+  }
+  client.disconnect();
+  state.online = false;
+  state.metrics = null;
+  ascii.drawNoSignal(state.theme);
+}
 
 function setTheme(name) {
   state.themeName = name;
@@ -161,5 +188,5 @@ function applyAsciiLayout(properties) {
 }
 
 resizeAll();
+ascii.drawNoSignal(state.theme);
 terminal.start();
-client.connect();

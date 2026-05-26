@@ -1,6 +1,6 @@
 {
 	"contentrating" : "Everyone",
-	"description" : "Interactive terminal-style Web Wallpaper for Wallpaper Engine. Connects to the local Socket Console Agent on localhost, renders live Windows system metrics, color ASCII artwork, countdown timers, extra UTC clocks, themes, and a lightweight CRT/VHS effect.",
+	"description" : "Interactive terminal-style Web Wallpaper for Wallpaper Engine. Live metrics require an optional local companion agent. The wallpaper also works as a standalone NO SIGNAL terminal scene with color ASCII styling, countdown timers, extra UTC clocks, themes, and a lightweight CRT/VHS effect.",
 	"file" : "index.html",
 	"general" : 
 	{
@@ -8,52 +8,53 @@
 		{
 			"agentPort" : 
 			{
-				"index" : 1,
-				"order" : 101,
+				"condition" : "useAgent.value == true",
+				"index" : 3,
+				"order" : 103,
 				"text" : "Agent port",
 				"type" : "textinput",
 				"value" : "48771"
 			},
 			"agentDownloadUrl" : 
 			{
-				"index" : 45,
-				"order" : 145,
+				"index" : 1,
+				"order" : 101,
 				"text" : "Agent download URL",
 				"type" : "textinput",
 				"value" : "https://github.com/kalininDanil17Y/SocketConsoleWallpaper-Agent-and-Wallpaper/releases/latest"
 			},
 			"asciiGroup" : 
 			{
-				"index" : 42,
-				"order" : 142,
+				"index" : 44,
+				"order" : 144,
 				"text" : "ASCII image",
 				"type" : "group",
 				"value" : ""
 			},
 			"asciiOffsetX" : 
 			{
-				"index" : 43,
+				"index" : 45,
 				"max" : 500,
 				"min" : -500,
-				"order" : 143,
+				"order" : 145,
 				"text" : "ASCII offset X",
 				"type" : "slider",
 				"value" : 0
 			},
 			"asciiOffsetY" : 
 			{
-				"index" : 44,
+				"index" : 46,
 				"max" : 500,
 				"min" : -500,
-				"order" : 144,
+				"order" : 146,
 				"text" : "ASCII offset Y",
 				"type" : "slider",
 				"value" : 0
 			},
 			"clock1Enabled" : 
 			{
-				"index" : 22,
-				"order" : 122,
+				"index" : 24,
+				"order" : 124,
 				"text" : "Clock 1",
 				"type" : "bool",
 				"value" : false
@@ -61,8 +62,8 @@
 			"clock1Offset" : 
 			{
 				"condition" : "clock1Enabled.value == true",
-				"index" : 24,
-				"order" : 124,
+				"index" : 26,
+				"order" : 126,
 				"text" : "Clock 1 UTC offset",
 				"type" : "textinput",
 				"value" : ""
@@ -70,16 +71,16 @@
 			"clock1Title" : 
 			{
 				"condition" : "clock1Enabled.value == true",
-				"index" : 23,
-				"order" : 123,
+				"index" : 25,
+				"order" : 125,
 				"text" : "Clock 1 title",
 				"type" : "textinput",
 				"value" : ""
 			},
 			"clock2Enabled" : 
 			{
-				"index" : 25,
-				"order" : 125,
+				"index" : 27,
+				"order" : 127,
 				"text" : "Clock 2",
 				"type" : "bool",
 				"value" : false
@@ -87,8 +88,8 @@
 			"clock2Offset" : 
 			{
 				"condition" : "clock2Enabled.value == true",
-				"index" : 27,
-				"order" : 127,
+				"index" : 29,
+				"order" : 129,
 				"text" : "Clock 2 UTC offset",
 				"type" : "textinput",
 				"value" : ""
@@ -96,16 +97,16 @@
 			"clock2Title" : 
 			{
 				"condition" : "clock2Enabled.value == true",
-				"index" : 26,
-				"order" : 126,
+				"index" : 28,
+				"order" : 128,
 				"text" : "Clock 2 title",
 				"type" : "textinput",
 				"value" : ""
 			},
 			"clock3Enabled" : 
 			{
-				"index" : 28,
-				"order" : 128,
+				"index" : 30,
+				"order" : 130,
 				"text" : "Clock 3",
 				"type" : "bool",
 				"value" : false
@@ -113,8 +114,8 @@
 			"clock3Offset" : 
 			{
 				"condition" : "clock3Enabled.value == true",
-				"index" : 30,
-				"order" : 130,
+				"index" : 32,
+				"order" : 132,
 				"text" : "Clock 3 UTC offset",
 				"type" : "textinput",
 				"value" : ""
@@ -122,24 +123,24 @@
 			"clock3Title" : 
 			{
 				"condition" : "clock3Enabled.value == true",
-				"index" : 29,
-				"order" : 129,
+				"index" : 31,
+				"order" : 131,
 				"text" : "Clock 3 title",
 				"type" : "textinput",
 				"value" : ""
 			},
 			"clocksGroup" : 
 			{
-				"index" : 21,
-				"order" : 121,
+				"index" : 23,
+				"order" : 123,
 				"text" : "Extra clocks",
 				"type" : "group",
 				"value" : ""
 			},
 			"crtEffect" : 
 			{
-				"index" : 3,
-				"order" : 103,
+				"index" : 5,
+				"order" : 105,
 				"text" : "CRT/VHS effect",
 				"type" : "bool",
 				"value" : true
@@ -154,8 +155,8 @@
 			},
 			"metricsGroup" : 
 			{
-				"index" : 31,
-				"order" : 131,
+				"index" : 33,
+				"order" : 133,
 				"text" : "System metrics",
 				"type" : "group",
 				"value" : ""
@@ -169,24 +170,24 @@
 			},
 			"showCores" : 
 			{
-				"index" : 36,
-				"order" : 136,
+				"index" : 38,
+				"order" : 138,
 				"text" : "Show cores",
 				"type" : "bool",
 				"value" : true
 			},
 			"showCpu" : 
 			{
-				"index" : 32,
-				"order" : 132,
+				"index" : 34,
+				"order" : 134,
 				"text" : "Show CPU",
 				"type" : "bool",
 				"value" : true
 			},
 			"showDisk" : 
 			{
-				"index" : 40,
-				"order" : 140,
+				"index" : 42,
+				"order" : 142,
 				"text" : "Show disk",
 				"type" : "bool",
 				"value" : true
@@ -194,63 +195,63 @@
 			"showDiskFreeSpace" : 
 			{
 				"condition" : "showDisk.value == true",
-				"index" : 41,
-				"order" : 141,
+				"index" : 43,
+				"order" : 143,
 				"text" : "Show disk free/total GB",
 				"type" : "bool",
 				"value" : false
 			},
 			"showGpu" : 
 			{
-				"index" : 34,
-				"order" : 134,
+				"index" : 36,
+				"order" : 136,
 				"text" : "Show GPU",
 				"type" : "bool",
 				"value" : true
 			},
 			"showIp" : 
 			{
-				"index" : 37,
-				"order" : 137,
+				"index" : 39,
+				"order" : 139,
 				"text" : "Show IP",
 				"type" : "bool",
 				"value" : true
 			},
 			"showNet" : 
 			{
-				"index" : 38,
-				"order" : 138,
+				"index" : 40,
+				"order" : 140,
 				"text" : "Show network interface",
 				"type" : "bool",
 				"value" : true
 			},
 			"showRam" : 
 			{
-				"index" : 33,
-				"order" : 133,
+				"index" : 35,
+				"order" : 135,
 				"text" : "Show RAM",
 				"type" : "bool",
 				"value" : true
 			},
 			"showScreen" : 
 			{
-				"index" : 39,
-				"order" : 139,
+				"index" : 41,
+				"order" : 141,
 				"text" : "Show screen",
 				"type" : "bool",
 				"value" : true
 			},
 			"showTemperatures" : 
 			{
-				"index" : 35,
-				"order" : 135,
+				"index" : 37,
+				"order" : 137,
 				"text" : "Show temperatures",
 				"type" : "bool",
 				"value" : true
 			},
 			"theme" : 
 			{
-				"index" : 2,
+				"index" : 4,
 				"options" : 
 				[
 					{
@@ -266,15 +267,23 @@
 						"value" : "aperture"
 					}
 				],
-				"order" : 102,
+				"order" : 104,
 				"text" : "Theme",
 				"type" : "combo",
 				"value" : "aperture"
 			},
+			"useAgent" : 
+			{
+				"index" : 2,
+				"order" : 102,
+				"text" : "Use local agent for live metrics",
+				"type" : "bool",
+				"value" : false
+			},
 			"timer1Enabled" : 
 			{
-				"index" : 6,
-				"order" : 106,
+				"index" : 8,
+				"order" : 108,
 				"text" : "Timer 1",
 				"type" : "bool",
 				"value" : false
@@ -282,8 +291,8 @@
 			"timer1Target" : 
 			{
 				"condition" : "timer1Enabled.value == true",
-				"index" : 8,
-				"order" : 108,
+				"index" : 10,
+				"order" : 110,
 				"text" : "Timer 1 date/time",
 				"type" : "textinput",
 				"value" : ""
@@ -291,16 +300,16 @@
 			"timer1Title" : 
 			{
 				"condition" : "timer1Enabled.value == true",
-				"index" : 7,
-				"order" : 107,
+				"index" : 9,
+				"order" : 109,
 				"text" : "Timer 1 title",
 				"type" : "textinput",
 				"value" : ""
 			},
 			"timer2Enabled" : 
 			{
-				"index" : 9,
-				"order" : 109,
+				"index" : 11,
+				"order" : 111,
 				"text" : "Timer 2",
 				"type" : "bool",
 				"value" : false
@@ -308,8 +317,8 @@
 			"timer2Target" : 
 			{
 				"condition" : "timer2Enabled.value == true",
-				"index" : 11,
-				"order" : 111,
+				"index" : 13,
+				"order" : 113,
 				"text" : "Timer 2 date/time",
 				"type" : "textinput",
 				"value" : ""
@@ -317,16 +326,16 @@
 			"timer2Title" : 
 			{
 				"condition" : "timer2Enabled.value == true",
-				"index" : 10,
-				"order" : 110,
+				"index" : 12,
+				"order" : 112,
 				"text" : "Timer 2 title",
 				"type" : "textinput",
 				"value" : ""
 			},
 			"timer3Enabled" : 
 			{
-				"index" : 12,
-				"order" : 112,
+				"index" : 14,
+				"order" : 114,
 				"text" : "Timer 3",
 				"type" : "bool",
 				"value" : false
@@ -334,8 +343,8 @@
 			"timer3Target" : 
 			{
 				"condition" : "timer3Enabled.value == true",
-				"index" : 14,
-				"order" : 114,
+				"index" : 16,
+				"order" : 116,
 				"text" : "Timer 3 date/time",
 				"type" : "textinput",
 				"value" : ""
@@ -343,16 +352,16 @@
 			"timer3Title" : 
 			{
 				"condition" : "timer3Enabled.value == true",
-				"index" : 13,
-				"order" : 113,
+				"index" : 15,
+				"order" : 115,
 				"text" : "Timer 3 title",
 				"type" : "textinput",
 				"value" : ""
 			},
 			"timer4Enabled" : 
 			{
-				"index" : 15,
-				"order" : 115,
+				"index" : 17,
+				"order" : 117,
 				"text" : "Timer 4",
 				"type" : "bool",
 				"value" : false
@@ -360,8 +369,8 @@
 			"timer4Target" : 
 			{
 				"condition" : "timer4Enabled.value == true",
-				"index" : 17,
-				"order" : 117,
+				"index" : 19,
+				"order" : 119,
 				"text" : "Timer 4 date/time",
 				"type" : "textinput",
 				"value" : ""
@@ -369,16 +378,16 @@
 			"timer4Title" : 
 			{
 				"condition" : "timer4Enabled.value == true",
-				"index" : 16,
-				"order" : 116,
+				"index" : 18,
+				"order" : 118,
 				"text" : "Timer 4 title",
 				"type" : "textinput",
 				"value" : ""
 			},
 			"timer5Enabled" : 
 			{
-				"index" : 18,
-				"order" : 118,
+				"index" : 20,
+				"order" : 120,
 				"text" : "Timer 5",
 				"type" : "bool",
 				"value" : false
@@ -386,8 +395,8 @@
 			"timer5Target" : 
 			{
 				"condition" : "timer5Enabled.value == true",
-				"index" : 20,
-				"order" : 120,
+				"index" : 22,
+				"order" : 122,
 				"text" : "Timer 5 date/time",
 				"type" : "textinput",
 				"value" : ""
@@ -395,24 +404,24 @@
 			"timer5Title" : 
 			{
 				"condition" : "timer5Enabled.value == true",
-				"index" : 19,
-				"order" : 119,
+				"index" : 21,
+				"order" : 121,
 				"text" : "Timer 5 title",
 				"type" : "textinput",
 				"value" : ""
 			},
 			"timersGroup" : 
 			{
-				"index" : 5,
-				"order" : 105,
+				"index" : 7,
+				"order" : 107,
 				"text" : "Timers",
 				"type" : "group",
 				"value" : ""
 			},
 			"vhsWaveEffect" : 
 			{
-				"index" : 4,
-				"order" : 104,
+				"index" : 6,
+				"order" : 106,
 				"text" : "VHS rolling wave",
 				"type" : "bool",
 				"value" : true

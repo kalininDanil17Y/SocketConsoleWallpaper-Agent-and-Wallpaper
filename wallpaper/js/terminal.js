@@ -42,7 +42,11 @@ export class TerminalRenderer {
     drawHeader(ctx, panelX, panelY, panelW, theme, dpr);
 
     if (!this.state.online) {
-      drawOffline(ctx, panelX, panelY, panelW, theme, this.state.port, dpr);
+      if (this.state.useAgent) {
+        drawOffline(ctx, panelX, panelY, panelW, theme, this.state.port, dpr);
+      } else {
+        drawStandalone(ctx, panelX, panelY, panelW, theme, dpr);
+      }
       drawFooter(ctx, c.width, c.height, theme, this.state, dpr);
       return;
     }
@@ -215,6 +219,28 @@ function drawOffline(ctx, x, y, w, theme, port, dpr) {
   ctx.strokeRect(x + 22 * dpr, y + 196 * dpr, w - 44 * dpr, 42 * dpr);
   ctx.fillStyle = theme.danger;
   ctx.fillText("ws://127.0.0.1:" + port + "/api/v1/live", x + 34 * dpr, y + 208 * dpr);
+  ctx.restore();
+}
+
+function drawStandalone(ctx, x, y, w, theme, dpr) {
+  const copy = copyForTheme(theme.key);
+  ctx.save();
+  ctx.textBaseline = "top";
+  ctx.font = `${18 * dpr}px Consolas, "Cascadia Mono", monospace`;
+  ctx.fillStyle = theme.accent;
+  ctx.fillText(copy.signalOffline, x + 22 * dpr, y + 82 * dpr);
+
+  ctx.font = `${15 * dpr}px Consolas, "Cascadia Mono", monospace`;
+  ctx.fillStyle = theme.fg;
+  ctx.fillText("Standalone terminal scene", x + 22 * dpr, y + 122 * dpr);
+  ctx.fillStyle = theme.muted;
+  ctx.fillText("Enable local agent for live metrics.", x + 22 * dpr, y + 152 * dpr);
+
+  ctx.strokeStyle = theme.accent;
+  ctx.lineWidth = 1 * dpr;
+  ctx.strokeRect(x + 22 * dpr, y + 196 * dpr, w - 44 * dpr, 42 * dpr);
+  ctx.fillStyle = theme.accent;
+  ctx.fillText("NO SIGNAL // DECORATIVE MODE", x + 34 * dpr, y + 208 * dpr);
   ctx.restore();
 }
 

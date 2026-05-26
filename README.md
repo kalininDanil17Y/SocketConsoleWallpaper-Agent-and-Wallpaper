@@ -1,6 +1,6 @@
 # Socket Console Wallpaper
 
-Interactive terminal-style Web Wallpaper for Wallpaper Engine. The wallpaper connects to a local Windows agent, renders live system metrics, shows color ASCII artwork, and supports timers, extra UTC clocks, themes, and CRT/VHS effects.
+Interactive terminal-style Web Wallpaper for Wallpaper Engine. Live metrics require an optional local companion agent. The wallpaper also works as a standalone NO SIGNAL terminal scene with color ASCII styling, countdown timers, extra UTC clocks, themes, and CRT/VHS effects.
 
 Russian documentation: [README.ru.md](README.ru.md)
 
@@ -81,6 +81,7 @@ http://127.0.0.1:48880/index.html
 Wallpaper Engine settings include:
 
 - `theme`: `dark`, `light`, or `aperture`
+- `useAgent`: enable connection to the optional local agent for live metrics
 - `agentDownloadUrl`: latest release URL for the optional local agent
 - `crtEffect`: base CRT scanlines, glow, flicker, and vignette
 - `vhsWaveEffect`: rolling old-monitor VHS wave

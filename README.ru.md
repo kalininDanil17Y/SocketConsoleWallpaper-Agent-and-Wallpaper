@@ -1,6 +1,6 @@
 # Socket Console Wallpaper
 
-Интерактивные терминальные Web-обои для Wallpaper Engine. Обои подключаются к локальному Windows-агенту, показывают системные метрики в реальном времени, цветной ASCII-арт, таймеры, дополнительные UTC-часы, темы и CRT/VHS-эффекты.
+Интерактивные терминальные Web-обои для Wallpaper Engine. Live metrics требуют опциональный локальный companion agent. Обои также работают как самостоятельная NO SIGNAL терминальная сцена с цветной ASCII-стилистикой, таймерами, дополнительными UTC-часами, темами и CRT/VHS-эффектами.
 
 English documentation: [README.md](README.md)
 
@@ -81,6 +81,7 @@ http://127.0.0.1:48880/index.html
 Настройки Wallpaper Engine:
 
 - `theme`: `dark`, `light` или `aperture`
+- `useAgent`: включает подключение к опциональному локальному агенту для live metrics
 - `agentDownloadUrl`: ссылка на последний релиз опционального локального агента
 - `crtEffect`: базовые CRT scanlines, glow, flicker и vignette
 - `vhsWaveEffect`: волна старого VHS/CRT-монитора
