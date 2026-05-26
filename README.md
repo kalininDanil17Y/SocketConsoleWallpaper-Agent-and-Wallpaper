@@ -30,6 +30,8 @@ go build -o socket-console-agent.exe .
 
 ### CLI Commands
 
+> **Very important:** `socket-console-agent.exe install` registers the Windows Service with the path to the exact exe you run the command from. The installer does not copy the exe to another directory. Move `socket-console-agent.exe` to a permanent location first, for example `C:\Program Files\Socket Console Agent\socket-console-agent.exe`, then run `install` from there. Do not delete or move that exe after installation, or the service will not start.
+
 | Command | Description |
 | --- | --- |
 | `socket-console-agent.exe run` | Run the agent in the current console for development and testing. It reads `.\config.json`, creates it when missing, listens on `127.0.0.1`, and stops on `Ctrl+C`. |
