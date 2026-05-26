@@ -8,6 +8,10 @@ English documentation: [README.md](README.md)
 
 Проект разработан при поддержке AI-ассистента Codex GPT-5.5 High.
 
+## Превью
+
+![Превью Socket Console Wallpaper](readme-preview.png)
+
 ## Безопасность и прозрачность
 
 Для бинарного файла опционального локального агента доступен публичный [отчёт VirusTotal](https://www.virustotal.com/gui/file-analysis/ZWZlZjFkZTQxY2I5ODBkYTVkMTYxZTBiZmE3MzdlNzk6MTc3OTc3Mzc5MA==). На момент проверки 70 из 71 антивирусных движков не пометили `socket-console-agent.exe`; один движок показал generic suspicious detection.
