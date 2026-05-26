@@ -29,26 +29,39 @@ type program struct {
 	cancel context.CancelFunc
 }
 
-func main() {
-	svcConfig := &service.Config{
-		Name:        serviceName,
-		DisplayName: serviceDisplayName,
-		Description: serviceDescription,
-		Arguments:   []string{},
-		Option: service.KeyValue{
-			"StartType": "automatic",
-		},
-	}
+var serviceConfigPathOverride string
 
-	prg := &program{}
-	svc, err := service.New(prg, svcConfig)
+func main() {
+	serviceConfigPathOverride = parseServiceConfigPathArg(os.Args[1:])
+
+	svc, err := newAgentService(nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	if len(os.Args) < 2 && service.Interactive() {
+		hideConsoleForUI()
+		relaunch, err := ensureElevated()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if relaunch {
+			return
+		}
+	}
+
+	if len(os.Args) >= 2 && os.Args[1] == "service" {
+		if err := svc.Run(); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+
 	if len(os.Args) < 2 {
 		if service.Interactive() {
-			printGeneralHelp()
+			if err := runUI(svc); err != nil {
+				log.Fatal(err)
+			}
 			return
 		}
 		if err := svc.Run(); err != nil {
@@ -77,31 +90,88 @@ func main() {
 			return
 		}
 		printGeneralHelp()
+	case "ui":
+		hideConsoleForUI()
+		relaunch, err := ensureElevated()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if relaunch {
+			return
+		}
+		if err := runUI(svc); err != nil {
+			log.Fatal(err)
+		}
 	case "run":
+		relaunch, err := ensureElevated()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if relaunch {
+			return
+		}
+		if _, installed, _ := serviceState(svc); installed {
+			log.Fatal("service is installed; use start/stop/status or uninstall it before local run")
+		}
 		if err := runConsole(); err != nil {
 			log.Fatal(err)
 		}
 	case "install":
+		relaunch, err := ensureElevated()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if relaunch {
+			return
+		}
 		if err := svc.Install(); err != nil {
 			log.Fatal(err)
 		}
 		fmt.Println("Service installed.")
 	case "uninstall":
+		relaunch, err := ensureElevated()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if relaunch {
+			return
+		}
 		if err := svc.Uninstall(); err != nil {
 			log.Fatal(err)
 		}
 		fmt.Println("Service uninstalled.")
 	case "start":
+		relaunch, err := ensureElevated()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if relaunch {
+			return
+		}
 		if err := svc.Start(); err != nil {
 			log.Fatal(err)
 		}
 		fmt.Println("Service started.")
 	case "stop":
+		relaunch, err := ensureElevated()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if relaunch {
+			return
+		}
 		if err := svc.Stop(); err != nil {
 			log.Fatal(err)
 		}
 		fmt.Println("Service stopped.")
 	case "status":
+		relaunch, err := ensureElevated()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if relaunch {
+			return
+		}
 		status, err := svc.Status()
 		if err != nil {
 			log.Fatal(err)
@@ -112,6 +182,21 @@ func main() {
 		printGeneralHelp()
 		os.Exit(2)
 	}
+}
+
+func newAgentService(arguments []string) (service.Service, error) {
+	svcConfig := &service.Config{
+		Name:        serviceName,
+		DisplayName: serviceDisplayName,
+		Description: serviceDescription,
+		Arguments:   arguments,
+		Option: service.KeyValue{
+			"StartType": "automatic",
+		},
+	}
+
+	prg := &program{}
+	return service.New(prg, svcConfig)
 }
 
 func runConsole() error {
@@ -158,7 +243,7 @@ func (p *program) Start(s service.Service) error {
 	ctx, cancel := context.WithCancel(context.Background())
 	p.cancel = cancel
 
-	cfg, cfgPath, err := config.Load(config.ServiceConfigPath())
+	cfg, cfgPath, err := config.Load(serviceConfigPath())
 	if err != nil {
 		if p.logger != nil {
 			_ = p.logger.Error(err)
@@ -204,6 +289,7 @@ Usage:
   %s help <command>
 
 Commands:
+  ui         Open the native Windows control panel.
   run        Run the agent in the current console for development.
   install    Install the agent as a Windows Service with automatic startup.
   uninstall  Remove the Windows Service registration.
@@ -228,15 +314,28 @@ Config:
   Override:        SOCKET_CONSOLE_AGENT_CONFIG=C:\path\to\config.json
 
 Examples:
+  %s ui
   %s run
   %s help run
   %s install
-`, exe, exe, exe, exe, exe)
+`, exe, exe, exe, exe, exe, exe)
 }
 
 func printCommandHelp(command string) bool {
 	exe := filepath.Base(os.Args[0])
 	helps := map[string]string{
+		"ui": fmt.Sprintf(`Command: ui
+
+Usage:
+  %s ui
+
+Opens the native Windows control panel. The window can run the agent locally
+when the service is not installed, manage the Windows Service, show logs, and
+edit the service config.
+
+Example:
+  %s ui
+`, exe, exe),
 		"run": fmt.Sprintf(`Command: run
 
 Usage:
@@ -357,4 +456,30 @@ func isHelpArg(arg string) bool {
 	default:
 		return false
 	}
+}
+
+func serviceConfigPath() string {
+	if serviceConfigPathOverride != "" {
+		return serviceConfigPathOverride
+	}
+	return config.ServiceConfigPath()
+}
+
+func parseServiceConfigPathArg(args []string) string {
+	for i := 0; i < len(args); i++ {
+		switch args[i] {
+		case "--config", "-config":
+			if i+1 < len(args) {
+				return args[i+1]
+			}
+		}
+	}
+	return ""
+}
+
+func serviceArgumentsForConfigPath(path string) []string {
+	if path == "" {
+		return []string{"service"}
+	}
+	return []string{"service", "--config", path}
 }

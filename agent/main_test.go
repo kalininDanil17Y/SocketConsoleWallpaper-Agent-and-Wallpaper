@@ -30,3 +30,25 @@ func TestServiceStatusText(t *testing.T) {
 		}
 	}
 }
+
+func TestParseServiceConfigPathArg(t *testing.T) {
+	if got := parseServiceConfigPathArg([]string{"service", "--config", `C:\Agent\config.json`}); got != `C:\Agent\config.json` {
+		t.Fatalf("parseServiceConfigPathArg() = %q", got)
+	}
+	if got := parseServiceConfigPathArg([]string{"service"}); got != "" {
+		t.Fatalf("parseServiceConfigPathArg() = %q, want empty", got)
+	}
+}
+
+func TestServiceArgumentsForConfigPath(t *testing.T) {
+	args := serviceArgumentsForConfigPath(`C:\Agent\config.json`)
+	want := []string{"service", "--config", `C:\Agent\config.json`}
+	if len(args) != len(want) {
+		t.Fatalf("len(args) = %d, want %d", len(args), len(want))
+	}
+	for i := range want {
+		if args[i] != want[i] {
+			t.Fatalf("args[%d] = %q, want %q", i, args[i], want[i])
+		}
+	}
+}

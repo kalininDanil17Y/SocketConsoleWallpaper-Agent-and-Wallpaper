@@ -28,12 +28,19 @@ go build -o socket-console-agent.exe .
 .\socket-console-agent.exe run
 ```
 
+Для release-сборки, которая открывает UI по двойному клику без консольного окна:
+
+```powershell
+go build -ldflags="-H windowsgui" -o socket-console-agent.exe .
+```
+
 ### CLI-команды
 
 > **Очень важно:** `socket-console-agent.exe install` регистрирует Windows Service с путём к тому exe-файлу, из которого запущена команда. Установщик не копирует exe в другую папку. Сначала переместите `socket-console-agent.exe` в постоянное место, например `C:\Program Files\Socket Console Agent\socket-console-agent.exe`, и только потом запускайте `install` оттуда. После установки не удаляйте и не перемещайте этот exe, иначе служба не сможет запуститься.
 
 | Команда | Описание |
 | --- | --- |
+| `socket-console-agent.exe ui` | Открывает native Windows-панель управления. Запуск exe без аргументов в интерактивной desktop-сессии открывает тот же UI. |
 | `socket-console-agent.exe run` | Запускает агент в текущей консоли для разработки и тестирования. Читает `.\config.json`, создаёт его при отсутствии, слушает только `127.0.0.1` и корректно завершается по `Ctrl+C`. |
 | `socket-console-agent.exe install` | Устанавливает агент как Windows Service с автоматическим запуском. Запускать из терминала с правами администратора. |
 | `socket-console-agent.exe uninstall` | Удаляет регистрацию Windows Service. Если служба запущена, сначала остановите её. Запускать из терминала с правами администратора. |
@@ -64,6 +71,7 @@ WS   ws://127.0.0.1:48771/api/v1/live
 ```text
 Режим разработки:  .\config.json
 Режим службы:      %ProgramData%\SocketConsoleAgent\config.json
+Установка из UI:   выбранный в панели путь передается службе как service --config <path>
 Переопределение:   SOCKET_CONSOLE_AGENT_CONFIG=C:\path\to\config.json
 ```
 

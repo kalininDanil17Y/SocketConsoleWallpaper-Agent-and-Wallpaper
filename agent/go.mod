@@ -5,6 +5,7 @@ go 1.25
 require (
 	github.com/gorilla/websocket v1.5.3
 	github.com/kardianos/service v1.2.4
+	github.com/lxn/win v0.0.0-20210218163916-a377121e959e
 	github.com/shirou/gopsutil/v4 v4.25.4
 	github.com/yusufpapurcu/wmi v1.2.4
 	golang.org/x/image v0.29.0
