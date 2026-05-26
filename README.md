@@ -2,6 +2,8 @@
 
 Project for Wallpaper Engine Web Wallpaper experiments.
 
+Проект сделан через неиросеть "codex GPT-5.5 Высокий".
+
 ## Agent
 
 The Windows localhost agent lives in `agent/`.
@@ -57,6 +59,7 @@ Wallpaper Engine settings include:
 - `crtEffect`: base CRT scanlines, glow, flicker, and vignette
 - `vhsWaveEffect`: rolling old-monitor VHS wave
 - `showCpu`, `showRam`, `showGpu`, `showTemperatures`, `showCores`, `showIp`, `showNet`, `showScreen`, `showDisk`
+- `showDiskFreeSpace`: display free/total GB next to disk percentages
 - `asciiOffsetX`, `asciiOffsetY`
 - `timer1Title` ... `timer5Title`
 - `timer1Target` ... `timer5Target`

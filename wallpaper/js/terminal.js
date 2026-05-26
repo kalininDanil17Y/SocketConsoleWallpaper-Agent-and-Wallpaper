@@ -127,10 +127,10 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
   row++;
 
   if (visibility.cpu !== false) {
-    row = drawMeter(ctx, x, startY, row, lineH, "CPU", status?.cpu?.usagePercent || 0, theme, dpr);
+    row = drawMeter(ctx, x, startY, row, lineH, "CPU", status?.cpu?.usagePercent || 0, theme, dpr, w);
   }
   if (visibility.ram !== false) {
-    row = drawMeter(ctx, x, startY, row, lineH, "RAM", status?.memory?.usagePercent || 0, theme, dpr);
+    row = drawMeter(ctx, x, startY, row, lineH, "RAM", status?.memory?.usagePercent || 0, theme, dpr, w);
   }
   if (visibility.temperatures !== false) {
     if (typeof status?.temperatures?.cpuCelsius === "number") {
@@ -144,7 +144,19 @@ function drawMetrics(ctx, x, y, w, theme, state, dpr) {
   if (visibility.disk !== false) {
     const disks = Array.isArray(status?.disks) ? status.disks : [];
     for (const disk of disks.slice(0, 3)) {
-      row = drawMeter(ctx, x, startY, row, lineH, `DISK ${disk.name}`, disk.usagePercent || 0, theme, dpr);
+      row = drawMeter(
+        ctx,
+        x,
+        startY,
+        row,
+        lineH,
+        `DISK ${disk.name}`,
+        disk.usagePercent || 0,
+        theme,
+        dpr,
+        w,
+        state.showDiskFreeSpace ? formatDiskFreeSpace(disk) : ""
+      );
     }
   }
 
@@ -237,17 +249,26 @@ function drawInfoLine(ctx, x, startY, row, lineH, label, value, theme, dpr, valu
   return row + 1;
 }
 
-function drawMeter(ctx, x, startY, row, lineH, label, percent, theme, dpr) {
+function drawMeter(ctx, x, startY, row, lineH, label, percent, theme, dpr, panelW, detail = "") {
   const y = startY + row * lineH;
   const blocks = 10;
   const filled = Math.max(0, Math.min(blocks, Math.round((percent / 100) * blocks)));
   const bar = "█".repeat(filled) + "░".repeat(blocks - filled);
+  const percentText = `${Math.round(percent).toString().padStart(3, " ")}%`;
   ctx.fillStyle = theme.muted;
   ctx.fillText(label.padEnd(8, " "), x + 22 * dpr, y);
   ctx.fillStyle = percent >= 90 ? theme.danger : theme.accent;
   ctx.fillText(bar, x + 122 * dpr, y);
   ctx.fillStyle = theme.fg;
-  ctx.fillText(`${Math.round(percent).toString().padStart(3, " ")}%`, x + 284 * dpr, y);
+  ctx.fillText(percentText, x + 284 * dpr, y);
+  if (detail) {
+    const detailX = x + 332 * dpr;
+    const maxW = x + panelW - 22 * dpr - detailX;
+    if (maxW > 42 * dpr) {
+      ctx.fillStyle = theme.muted;
+      ctx.fillText(trimToWidth(ctx, detail, maxW), detailX, y);
+    }
+  }
   return row + 1;
 }
 
@@ -275,10 +296,49 @@ function formatClock(date) {
   return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}`;
 }
 
+function formatDiskFreeSpace(disk) {
+  const total = Number(disk?.totalBytes || 0);
+  const used = Number(disk?.usedBytes || 0);
+  if (total <= 0) {
+    return "";
+  }
+  const free = Math.max(0, total - used);
+  return `${formatGigabytes(free)}/${formatGigabytes(total)} GB`;
+}
+
+function formatGigabytes(bytes) {
+  const gb = bytes / 1024 / 1024 / 1024;
+  if (gb >= 100) {
+    return String(Math.round(gb));
+  }
+  if (gb >= 10) {
+    return gb.toFixed(1);
+  }
+  return gb.toFixed(2);
+}
+
 function trimText(value, max) {
   const text = String(value).trim();
   if (text.length <= max) {
     return text;
   }
   return text.slice(0, Math.max(1, max - 3)) + "...";
+}
+
+function trimToWidth(ctx, value, maxW) {
+  const text = String(value);
+  if (ctx.measureText(text).width <= maxW) {
+    return text;
+  }
+  let lo = 0;
+  let hi = text.length;
+  while (lo < hi) {
+    const mid = Math.ceil((lo + hi) / 2);
+    if (ctx.measureText(text.slice(0, mid) + "...").width <= maxW) {
+      lo = mid;
+    } else {
+      hi = mid - 1;
+    }
+  }
+  return text.slice(0, lo) + "...";
 }
