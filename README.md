@@ -1,8 +1,12 @@
 # Socket Console Wallpaper
 
-Project for Wallpaper Engine Web Wallpaper experiments.
+Interactive terminal-style Web Wallpaper for Wallpaper Engine. The wallpaper connects to a local Windows agent, renders live system metrics, shows color ASCII artwork, and supports timers, extra UTC clocks, themes, and CRT/VHS effects.
 
-Проект сделан через неиросеть "codex GPT-5.5 Высокий".
+Russian documentation: [README.ru.md](README.ru.md)
+
+## Development Note
+
+This project was developed with AI assistance from Codex GPT-5.5 High.
 
 ## Agent
 
@@ -14,26 +18,41 @@ go build -o socket-console-agent.exe .
 .\socket-console-agent.exe run
 ```
 
-Available commands:
+### CLI Commands
+
+| Command | Description |
+| --- | --- |
+| `socket-console-agent.exe run` | Run the agent in the current console for development and testing. It reads `.\config.json`, creates it when missing, listens on `127.0.0.1`, and stops on `Ctrl+C`. |
+| `socket-console-agent.exe install` | Install the agent as a Windows Service with automatic startup. Run from an elevated terminal. |
+| `socket-console-agent.exe uninstall` | Remove the Windows Service registration. Stop the service first if it is running. Run from an elevated terminal. |
+| `socket-console-agent.exe start` | Start the installed Windows Service. The service must be installed first. |
+| `socket-console-agent.exe stop` | Stop the installed Windows Service. |
+| `socket-console-agent.exe status` | Print the current Windows Service status: `running`, `stopped`, or `unknown (<code>)`. |
+| `socket-console-agent.exe help` | Show general CLI help. |
+| `socket-console-agent.exe help <command>` | Show detailed help for a specific command, for example `socket-console-agent.exe help run`. |
+| `socket-console-agent.exe run --help` | Show command help through the alternate help flag syntax. |
+
+### Agent Endpoints
+
+Default dev endpoints:
 
 ```text
-socket-console-agent.exe run
-socket-console-agent.exe install
-socket-console-agent.exe uninstall
-socket-console-agent.exe start
-socket-console-agent.exe stop
-socket-console-agent.exe status
-socket-console-agent.exe help
-socket-console-agent.exe help run
-socket-console-agent.exe run --help
+GET  http://127.0.0.1:48771/api/v1/status
+GET  http://127.0.0.1:48771/api/v1/config
+POST http://127.0.0.1:48771/api/v1/config
+GET  http://127.0.0.1:48771/api/v1/interfaces
+GET  http://127.0.0.1:48771/api/v1/disks
+GET  http://127.0.0.1:48771/api/v1/images
+GET  http://127.0.0.1:48771/api/v1/ascii
+WS   ws://127.0.0.1:48771/api/v1/live
 ```
 
-Default dev endpoint:
+Config paths:
 
 ```text
-http://127.0.0.1:48771/api/v1/status
-http://127.0.0.1:48771/api/v1/ascii
-ws://127.0.0.1:48771/api/v1/live
+Dev mode:      .\config.json
+Service mode:  %ProgramData%\SocketConsoleAgent\config.json
+Override:      SOCKET_CONSOLE_AGENT_CONFIG=C:\path\to\config.json
 ```
 
 ## Wallpaper
