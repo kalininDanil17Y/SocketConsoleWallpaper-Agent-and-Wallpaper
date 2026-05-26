@@ -15,6 +15,7 @@ const state = {
   asciiSource: "",
   asciiOffsetX: 0,
   asciiOffsetY: 0,
+  showDiskFreeSpace: false,
   themeName: DEFAULT_THEME,
   theme: getTheme(DEFAULT_THEME),
   crtEffect: true,
@@ -94,6 +95,7 @@ window.wallpaperPropertyListener = {
       setVhsWaveEffect(state.vhsWaveEffect);
     }
     applyMetricVisibility(properties);
+    applyDiskSettings(properties);
     applyAsciiLayout(properties);
     state.timers = timersFromProperties(properties, state.timers);
     state.clocks = clocksFromProperties(properties, state.clocks);
@@ -131,6 +133,12 @@ function applyMetricVisibility(properties) {
     if (properties[propertyName]) {
       state.metricsVisibility[stateName] = Boolean(properties[propertyName].value);
     }
+  }
+}
+
+function applyDiskSettings(properties) {
+  if (properties.showDiskFreeSpace) {
+    state.showDiskFreeSpace = Boolean(properties.showDiskFreeSpace.value);
   }
 }
 
